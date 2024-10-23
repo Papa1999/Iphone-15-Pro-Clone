@@ -1,17 +1,19 @@
 import { apple, bag, search } from "../assets/images";
 export default function Navbar() {
   return (
-    <nav className="mt-[30px] flex justify-between items-center xl:w-[945px] h-[50px] mx-auto text-white">
+    <nav className="container mt-[30px] flex justify-between items-center xl:w-[945px] h-[50px] mx-auto text-white">
       <div id="logo">
         <img src={apple} alt="Apple Logo" />
       </div>
-      <ul id="navLinks" className="flex xl:gap-[30px]">
-        <li id="navLink">Store</li>
-        <li id="navLink">Mac</li>
-        <li id="navLink">iPhone</li>
-        <li id="navLink">Support</li>
+      <ul id="navLinks" className="flex gap-[30px]">
+        <li id="navLink" className="font-serif text-[22px] font-normal ">
+          Store
+        </li>
+        <li id="navLink" className="font-roboto text-[22px] font-normal ">Mac</li>
+        <li id="navLink" className="font-roboto text-[22px] font-normal ">iPhone</li>
+        <li id="navLink" className="font-roboto text-[22px] font-normal ">Support</li>
       </ul>
-      <div id="icons" className="flex xl:gap-[20px]">
+      <div id="icons" className="flex gap-[20px]">
         <div>
           <img src={search} alt="search" />
         </div>

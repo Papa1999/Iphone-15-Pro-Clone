@@ -1,3 +1,32 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@layer utilities {
+  .container {
+    @apply xl:w-[945px] md:w-[690px] sm:w-[521px] mx-auto;
+  }
+  .carousel {
+    @apply xl:w-[1032px] max-md:container mx-auto;
+  }
+  .closerlook_container {
+    @apply xl:w-[769px] md:w-[576px] max-sm:w-[412px] mx-auto;
+  }
+  .title {
+    @apply text-[40px] font-bold text-[#F0E6D1];
+  }
+}
+
+@layer components {
+  .btn {
+    @apply bg-[#2997FF] px-[24px] py-[8px] rounded-[20px] font-poppins text-[19px];
+  }
+}
+
+html{
+    scroll-behavior: smooth;
+}
