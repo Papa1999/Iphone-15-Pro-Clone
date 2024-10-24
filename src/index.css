@@ -8,13 +8,13 @@
 
 @layer utilities {
   .container {
-    @apply xl:w-[945px] md:w-[690px] sm:w-[521px] mx-auto;
+    @apply xl:w-[945px] md:w-[690px] max-md:w-5/6 mx-auto;
   }
   .carousel {
-    @apply xl:w-[1032px] max-md:container mx-auto;
+    @apply w-[1032px]  max-md:container mx-auto;
   }
   .closerlook_container {
-    @apply xl:w-[769px] md:w-[576px] max-sm:w-[412px] mx-auto;
+    @apply xl:w-[769px] md:w-[576px] max-md:w-5/6 mx-auto;
   }
   .title {
     @apply text-[40px] font-bold text-[#F0E6D1];
