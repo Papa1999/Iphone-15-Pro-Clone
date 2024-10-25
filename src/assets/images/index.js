@@ -16,6 +16,7 @@ import white from "./white.jpg";
 import yellow from "./yellow.jpg";
 import frame from "./frame.png";
 import react from "./react.svg";
+import playWhite from "./playWhite.svg";
 
 export {
   apple,
@@ -36,4 +37,5 @@ export {
   yellow,
   frame,
   react,
+  playWhite
 };
