@@ -31,7 +31,7 @@ export default function HeroSection() {
     return () => {
       window.removeEventListener("resize", handleSize);
     };
-  });
+  }, []);
 
   return (
     <section className="container flex flex-col items-center text-white h-screen justify-evenly">
@@ -39,18 +39,25 @@ export default function HeroSection() {
         iPhone 15 Pro
       </h2>
       <div id="video_wrapper" className="opacity-0">
-        <video autoPlay loop muted>
-          <source src={heroVideo} />
+        <video
+          className="pointer-events-none"
+          autoPlay
+          loop
+          muted
+          playsInline={true}
+          key={heroVideo}
+        >
+          <source src={heroVideo} type="video/mp4" />
         </video>
       </div>
 
-      <button className="btn opacity-0 translate-y-[50px]" id="btn">
-        Buy
-      </button>
-      <div>
+      <div className="flex flex-col items-center gap-10">
+        <button className="btn opacity-0 translate-y-[80px]" id="btn">
+          Buy
+        </button>
         <p
           id="paragraph"
-          className="text-[20px] font-poppins translate-y-[50px] opacity-0"
+          className="text-[20px] font-poppins translate-y-[80px] opacity-0"
         >
           From $199/month or $999.
         </p>
