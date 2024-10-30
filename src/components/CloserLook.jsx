@@ -5,7 +5,7 @@ export default function CloserLook() {
       <div className="closerlook_container h-[70vh] border-solid border-2 border-white "></div>
       <div className="flex flex-col gap-5 items-center">
         <p className="text-white text-[20px] font-poppins">
-          iPhone 15 Pro in Blue Titanium.{" "}
+          iPhone 15 Pro in Blue Titanium.
         </p>
         <div className="flex  items-center">
           <div

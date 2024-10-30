@@ -1,5 +1,5 @@
 import { useGSAP } from "@gsap/react";
-import { hero, smallHero } from "../assets/videos";
+import { heroVid, smallHero } from "../utils";
 import gsap from "gsap";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -14,14 +14,14 @@ export default function HeroSection() {
   }, []);
 
   const [heroVideo, setheroVideo] = useState(
-    window.innerWidth < 768 ? smallHero : hero
+    window.innerWidth < 768 ? smallHero : heroVid
   );
 
   const handleSize = () => {
     if (window.innerWidth < 768) {
       setheroVideo(smallHero);
     } else {
-      setheroVideo(hero);
+      setheroVideo(heroVid);
     }
   };
 

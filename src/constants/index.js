@@ -3,9 +3,11 @@ import {
   highlightFourth,
   highlightSec,
   highlightThird,
-} from "../assets/videos";
+  play,
+  right,
+} from "../utils";
 
-import { black, blue, white, yellow } from "../assets/images";
+import { black, blue, white, yellow } from "../utils";
 
 export const navLists = ["Store", "Mac", "iPhone", "Support"];
 
@@ -82,4 +84,15 @@ export const footerLinks = [
   "Sales Policy",
   "Legal",
   "Site Map",
+];
+
+export const hightLightLinks = [
+  {
+    text: "watch the film",
+    icon: play,
+  },
+  {
+    text: "watch the event",
+    icon: right,
+  },
 ];

@@ -1,7 +1,7 @@
 import { useGSAP } from "@gsap/react";
-import { play, playWhite, right } from "../assets/images";
+import { playWhite } from "../utils";
 import gsap from "gsap";
-import { hightlightsSlides } from "../constants";
+import { hightLightLinks, hightlightsSlides } from "../constants";
 
 export default function Highlight() {
   useGSAP(() => {
@@ -13,7 +13,7 @@ export default function Highlight() {
       delay: 1,
       duration: 1,
     });
-    gsap.to("#Carousel", {opacity:1, delay:1.50 })
+    gsap.to("#Carousel", { opacity: 1, delay: 1.5 });
   });
   return (
     <section
@@ -25,38 +25,47 @@ export default function Highlight() {
           Get The Hightlight.
         </h2>
         <div className="flex gap-5 ">
-          <div className="flex items-center gap-2 link opacity-0 translate-y-20">
-            <a href="/" className="text-[#2997FF] text-[15px]">
-              Watch the Film
-            </a>
-            <div>
-              <img src={play} alt="play button" />
-            </div>
-          </div>
-          <div className="flex items-center  gap-2 link opacity-0 translate-y-20">
-            <a href="/" className="text-[#2997FF] text-[15px] ">
-              Watch the event
-            </a>
-            <div>
-              <div className="h-[20px] w-[20px] flex justify-start items-center">
-                <img src={right} alt="right button" />
+          {hightLightLinks.map((link) => (
+            <div className="flex items-center gap-2 link opacity-0 translate-y-20">
+              <a href="/" className="text-[#2997FF] text-[15px]">
+                {link.text}
+              </a>
+              <div>
+                <img src={link.icon} alt="play button" />
               </div>
             </div>
-          </div>
+          ))}
         </div>
       </div>
-      <div id="Carousel" className="flex overflow-x-scroll gap-5 lg:pl-[250px] md:pl-[250px] sm:w-5/6 sm:mx-auto opacity-0">
+      <div
+        id="Carousel"
+        className="flex items-center overflow-hidden opacity-0 gap-10"
+      >
         {hightlightsSlides.map((slide) => (
-          <div key={slide.id} className="relative">
-            <div className="bg-black md:w-[540px] md:h-[316px] rounded-3xl flex justify-center items-center ">
-              <video autoPlay muted playsInline={true} loop className="w-3/5">
-                <source src={slide.video} type="video/mp4" />
-              </video>
-            </div>
-            <div className="absolute top-[50px] left-[20px]">
-              {slide.textLists.map((textList, index) => (
-                <p key={index} className="text-xl font-medium">{textList}</p>
-              ))}
+          <div
+            key={slide.id}
+            className="w-[780px] h-[300px] bg-black rounded-3xl "
+          >
+            <div className="flex items-center h-full">
+              <div className="relative">
+                <div>
+                  <video
+                    autoPlay
+                    muted
+                    playsInline={true}
+                    loop
+                  >
+                    <source src={slide.video} type="video/mp4" />
+                  </video>
+                </div>
+                <div className="absolute top-[0px] left-[20px]">
+                  {slide.textLists.map((textList, index) => (
+                    <p key={index} className="text-xl font-medium">
+                      {textList}
+                    </p>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         ))}
