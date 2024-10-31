@@ -37,40 +37,31 @@ export default function Highlight() {
           ))}
         </div>
       </div>
-      <div
-        id="Carousel"
-        className="flex items-center overflow-hidden opacity-0 gap-10"
-      >
-        {hightlightsSlides.map((slide) => (
-          <div
-            key={slide.id}
-            className="w-[780px] h-[300px] bg-black rounded-3xl "
-          >
-            <div className="flex items-center h-full">
-              <div className="relative">
-                <div>
-                  <video
-                    autoPlay
-                    muted
-                    playsInline={true}
-                    loop
-                  >
-                    <source src={slide.video} type="video/mp4" />
-                  </video>
-                </div>
-                <div className="absolute top-[0px] left-[20px]">
-                  {slide.textLists.map((textList, index) => (
-                    <p key={index} className="text-xl font-medium">
-                      {textList}
-                    </p>
-                  ))}
+      <div id="Carousel" className="">
+        <div className="w-[60%] mx-auto bg-black ">
+          <div className="bg-black flex w-full">
+            {hightlightsSlides.map((slide) => (
+              <div key={slide.id} >
+                <div className="relative">
+                  <div className="flex items-center justify-center">
+                    <video autoPlay muted playsInline={true} loop>
+                      <source src={slide.video} type="video/mp4" />
+                    </video>
+                  </div>
+                  <div className="absolute top-[0px] left-[20px]">
+                    {slide.textLists.map((textList, index) => (
+                      <p key={index} className="text-xl font-medium">
+                        {textList}
+                      </p>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
-      <div className="w-[250px] h-[55px] flex justify-around items-center gap-[20px] self-center ">
+      {/* <div className="w-[250px] h-[55px] flex justify-around items-center gap-[20px] self-center ">
         <div
           id="Sliders Icons"
           className="w-[170px] h-[55px] flex  justify-evenly items-center gap-[15px]rounded-lg"
@@ -83,7 +74,7 @@ export default function Highlight() {
         <div className="flex justify-center items-center h-[45px] w-[45px]  opacity-50 rounded-full ">
           <img src={playWhite} alt="play icon" />
         </div>
-      </div>
+      </div> */}
     </section>
   );
 }
