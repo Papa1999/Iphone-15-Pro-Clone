@@ -1,7 +1,8 @@
 import { useGSAP } from "@gsap/react";
 import { playWhite } from "../utils";
 import gsap from "gsap";
-import { hightLightLinks, hightlightsSlides } from "../constants";
+import { hightLightLinks } from "../constants";
+import VideoCarousel from "./VideoCarousel";
 
 export default function Highlight() {
   useGSAP(() => {
@@ -18,7 +19,7 @@ export default function Highlight() {
   return (
     <section
       id="Hightlight"
-      className="w-full h-screen text-white flex flex-col justify-evenly  bg-[#232323] overflow-hidden "
+      className="w-full text-white flex flex-col justify-evenly bg-[#232323]"
     >
       <div className="container flex  max-md:flex-col max-md:gap-5 justify-between ">
         <h2 id="title" className="title">
@@ -37,7 +38,8 @@ export default function Highlight() {
           ))}
         </div>
       </div>
-      <div id="Carousel" className="">
+      <VideoCarousel />
+      {/* <div id="Carousel" className="">
         <div className="w-[60%] mx-auto bg-black ">
           <div className="bg-black flex w-full">
             {hightlightsSlides.map((slide) => (
@@ -60,7 +62,7 @@ export default function Highlight() {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
       {/* <div className="w-[250px] h-[55px] flex justify-around items-center gap-[20px] self-center ">
         <div
           id="Sliders Icons"
