@@ -1,8 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import { playWhite } from "../utils";
 import gsap from "gsap";
-import { hightLightLinks } from "../constants";
-import VideoCarousel from "./VideoCarousel";
+import { hightLightLinks, hightlightsSlides } from "../constants";
 
 export default function Highlight() {
   useGSAP(() => {
@@ -14,14 +13,15 @@ export default function Highlight() {
       delay: 1,
       duration: 1,
     });
-    gsap.to("#Carousel", { opacity: 1, delay: 1.5 });
+    gsap.to("#Carousel_container", { opacity: 1, delay: 1.5 });
   });
+
   return (
     <section
       id="Hightlight"
-      className="w-full text-white flex flex-col justify-evenly bg-[#232323]"
+      className="w-full h-screen text-white flex flex-col bg-[#232323] justify-around"
     >
-      <div className="container flex  max-md:flex-col max-md:gap-5 justify-between ">
+      <div className="container flex  max-md:flex-col max-md:gap-5 justify-between">
         <h2 id="title" className="title">
           Get The Hightlight.
         </h2>
@@ -38,45 +38,51 @@ export default function Highlight() {
           ))}
         </div>
       </div>
-      <VideoCarousel />
-      {/* <div id="Carousel" className="">
-        <div className="w-[60%] mx-auto bg-black ">
-          <div className="bg-black flex w-full">
-            {hightlightsSlides.map((slide) => (
-              <div key={slide.id} >
-                <div className="relative">
-                  <div className="flex items-center justify-center">
-                    <video autoPlay muted playsInline={true} loop>
-                      <source src={slide.video} type="video/mp4" />
-                    </video>
-                  </div>
-                  <div className="absolute top-[0px] left-[20px]">
-                    {slide.textLists.map((textList, index) => (
-                      <p key={index} className="text-xl font-medium">
-                        {textList}
-                      </p>
-                    ))}
-                  </div>
+      <div id="Carousel_layer">
+        <div
+          id="Carousel_container"
+          className="w-[55%] mx-auto flex overflow-x-scroll gap-5 max-lg:w-[75%] max-md:gap-10 max-md:w-[80%] opacity-0"
+        >
+          {hightlightsSlides.map((slide, index) => (
+            <div
+              key={slide.id}
+              className="h-[55vh] min-w-[80%] bg-black rounded-3xl flex items-center justify-center text-lg font-semibold max-lg:h-[55vh] max-sm:min-w-[100%] max-md:min-w-[90%]"
+            >
+              <div className="relative h-[90%] w-[90%] flex items-center">
+                <div>
+                  <video playsInline={true} autoPlay loop muted>
+                    <source type="video/mp4" src={slide.video} />
+                  </video>
+                </div>
+                <div className="absolute top-0 left-0">
+                  {slide.textLists.map((text, id) => (
+                    <div key={id}>
+                      <p>{text}</p>
+                    </div>
+                  ))}
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
-      </div> */}
-      {/* <div className="w-[250px] h-[55px] flex justify-around items-center gap-[20px] self-center ">
+      </div>
+      <div className="flex items-center justify-center gap-6">
+        <div className="flex gap-2 h-[48px] bg-white bg-opacity-50 rounded-full justify-center  items-center px-[35px]">
+          {hightlightsSlides.map((slide, id) => (
+            <div
+              id="video_tracker"
+              key={id}
+              className="bg-white rounded-full h-[16px] w-[16px]"
+            ></div>
+          ))}
+        </div>
         <div
-          id="Sliders Icons"
-          className="w-[170px] h-[55px] flex  justify-evenly items-center gap-[15px]rounded-lg"
+          id="play_pause_replay"
+          className=" flex w-[48px] h-[48px] rounded-full bg-white bg-opacity-50 justify-center items-center"
         >
-          <div className="w-[24px] h-[24px] bg-[#FFFFFF] opacity-90 rounded-full"></div>
-          <div className="w-[24px] h-[24px] bg-[#FFFFFF] opacity-90 rounded-full"></div>
-          <div className="w-[24px] h-[24px] bg-[#FFFFFF] opacity-90 rounded-full"></div>
-          <div className="w-[24px] h-[24px] bg-[#FFFFFF] opacity-90 rounded-full"></div>
+          <img src={playWhite} alt="control_button" />
         </div>
-        <div className="flex justify-center items-center h-[45px] w-[45px]  opacity-50 rounded-full ">
-          <img src={playWhite} alt="play icon" />
-        </div>
-      </div> */}
+      </div>
     </section>
   );
 }
