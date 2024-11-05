@@ -41,14 +41,14 @@ export default function Highlight() {
       <div id="Carousel_layer">
         <div
           id="Carousel_container"
-          className="w-[55%] mx-auto flex overflow-x-scroll gap-5 max-lg:w-[75%] max-md:gap-10 max-md:w-[80%] opacity-0"
+          className="w-[60%] mx-auto flex overflow-x-scroll gap-5 max-lg:w-[75%] max-md:gap-10 max-md:w-[80%] opacity-0"
         >
           {hightlightsSlides.map((slide, index) => (
             <div
               key={slide.id}
-              className="h-[55vh] min-w-[80%] bg-black rounded-3xl flex items-center justify-center text-lg font-semibold max-lg:h-[55vh] max-sm:min-w-[100%] max-md:min-w-[90%]"
+              className="h-[70vh] min-w-[90%] bg-black rounded-3xl flex items-center justify-center text-lg font-semibold max-lg:h-[55vh] max-sm:min-w-[100%] max-md:min-w-[90%]"
             >
-              <div className="relative h-[90%] w-[90%] flex items-center">
+              <div className="relative h-[70%] w-[90%] flex items-center">
                 <div>
                   <video playsInline={true} autoPlay loop muted>
                     <source type="video/mp4" src={slide.video} />
@@ -57,7 +57,7 @@ export default function Highlight() {
                 <div className="absolute top-0 left-0">
                   {slide.textLists.map((text, id) => (
                     <div key={id}>
-                      <p>{text}</p>
+                      <p className="md:text-2xl text-xl">{text}</p>
                     </div>
                   ))}
                 </div>
@@ -73,7 +73,13 @@ export default function Highlight() {
               id="video_tracker"
               key={id}
               className="bg-white rounded-full h-[16px] w-[16px]"
-            ></div>
+            >
+              <span
+                id="video_progress"
+                key={id}
+                className="bg-white rounded-full h-[16px] w-[16px]"
+              ></span>
+            </div>
           ))}
         </div>
         <div
