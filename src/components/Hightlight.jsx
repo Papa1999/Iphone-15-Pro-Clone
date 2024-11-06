@@ -2,8 +2,19 @@ import { useGSAP } from "@gsap/react";
 import { playWhite } from "../utils";
 import gsap from "gsap";
 import { hightLightLinks, hightlightsSlides } from "../constants";
+import { useRef, useEffect } from "react";
 
 export default function Highlight() {
+  const videosRef = useRef([]);
+  const videoDivRef = useRef([]);
+  const videoSpanRef = useRef([]);
+
+  useEffect(() => {
+    console.log(videosRef);
+    console.log(videoDivRef);
+    console.log(videoSpanRef);
+  }, []);
+
   useGSAP(() => {
     gsap.to("#title", { opacity: 1, y: 0, duration: 1 });
     gsap.to(".link", {
@@ -26,8 +37,11 @@ export default function Highlight() {
           Get The Hightlight.
         </h2>
         <div className="flex gap-5 ">
-          {hightLightLinks.map((link) => (
-            <div className="flex items-center gap-2 link opacity-0 translate-y-20">
+          {hightLightLinks.map((link, index) => (
+            <div
+              key={index}
+              className="flex items-center gap-2 link opacity-0 translate-y-20"
+            >
               <a href="/" className="text-[#2997FF] text-[15px]">
                 {link.text}
               </a>
@@ -50,7 +64,13 @@ export default function Highlight() {
             >
               <div className="relative h-[70%] w-[90%] flex items-center">
                 <div>
-                  <video playsInline={true} autoPlay loop muted>
+                  <video
+                    preload="auto"
+                    playsInline={true}
+                    autoPlay
+                    muted
+                    ref={(el) => (videosRef.current[index] = el)}
+                  >
                     <source type="video/mp4" src={slide.video} />
                   </video>
                 </div>
@@ -68,16 +88,18 @@ export default function Highlight() {
       </div>
       <div className="flex items-center justify-center gap-6">
         <div className="flex gap-2 h-[48px] bg-white bg-opacity-50 rounded-full justify-center  items-center px-[35px]">
-          {hightlightsSlides.map((slide, id) => (
+          {hightlightsSlides.map((slide, index) => (
             <div
               id="video_tracker"
-              key={id}
+              key={index}
               className="bg-white rounded-full h-[16px] w-[16px]"
+              ref={(el) => (videoDivRef.current[index] = el)}
             >
               <span
                 id="video_progress"
-                key={id}
+                key={index}
                 className="bg-white rounded-full h-[16px] w-[16px]"
+                ref={(el) => (videoSpanRef.current[index] = el)}
               ></span>
             </div>
           ))}
