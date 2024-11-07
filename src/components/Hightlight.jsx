@@ -1,13 +1,38 @@
 import { useGSAP } from "@gsap/react";
-import { playWhite } from "../utils";
+import { pause, playWhite, replay } from "../utils";
 import gsap from "gsap";
 import { hightLightLinks, hightlightsSlides } from "../constants";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 
 export default function Highlight() {
   const videosRef = useRef([]);
   const videoDivRef = useRef([]);
   const videoSpanRef = useRef([]);
+  const [videoOnTrack, setvideoOnTrack] = useState({
+    isLastVideo: false,
+    videoId: 0,
+    onTrack: false,
+    isEnd: false,
+    isPlaying: false,
+  });
+
+  const { onTrack, isLastVideo, isEnd, isPlaying, videoId } = videoOnTrack;
+
+  const handleTrack = (state) => {
+    switch (state) {
+      case "pause":
+        alert("Pause the video");
+        break;
+      case "play":
+        setvideoOnTrack((prev) => ({ ...prev, isPlaying: true }));
+        alert("Play the video");
+        break;
+      case "replay":
+        setvideoOnTrack((prev) => ({ ...prev, videoId: 0 }));
+        alert("Replay the video");
+        break;
+    }
+  };
 
   useEffect(() => {
     console.log(videosRef);
@@ -70,6 +95,10 @@ export default function Highlight() {
                     autoPlay
                     muted
                     ref={(el) => (videosRef.current[index] = el)}
+                    // onPlay={setvideoOnTrack((prev) => ({
+                    //   ...prev,
+                    //   onTrack: true,
+                    // }))}
                   >
                     <source type="video/mp4" src={slide.video} />
                   </video>
@@ -98,18 +127,34 @@ export default function Highlight() {
               <span
                 id="video_progress"
                 key={index}
-                className="bg-white rounded-full h-[16px] w-[16px]"
+                className="block rounded-full h-[16px] w-[16px]"
                 ref={(el) => (videoSpanRef.current[index] = el)}
               ></span>
             </div>
           ))}
         </div>
-        <div
+        <button
           id="play_pause_replay"
           className=" flex w-[48px] h-[48px] rounded-full bg-white bg-opacity-50 justify-center items-center"
+          onClick={
+            isLastVideo
+              ? () => {
+                  handleTrack("replay");
+                }
+              : !isLastVideo && onTrack
+              ? () => {
+                  handleTrack("pause");
+                }
+              : () => {
+                  handleTrack("play");
+                }
+          }
         >
-          <img src={playWhite} alt="control_button" />
-        </div>
+          <img
+            src={onTrack ? pause : isLastVideo ? replay : playWhite}
+            alt={onTrack ? "pause" : isLastVideo ? "replay" : "play"}
+          />
+        </button>
       </div>
     </section>
   );
