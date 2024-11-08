@@ -9,35 +9,41 @@ export default function Highlight() {
   const videoDivRef = useRef([]);
   const videoSpanRef = useRef([]);
   const [videoOnTrack, setvideoOnTrack] = useState({
-    isLastVideo: false,
     videoId: 0,
+    isLastVideo: false,
     onTrack: false,
     isEnd: false,
-    isPlaying: false,
   });
 
-  const { onTrack, isLastVideo, isEnd, isPlaying, videoId } = videoOnTrack;
+  const { onTrack, isLastVideo, isEnd, videoId } = videoOnTrack;
 
-  const handleTrack = (state) => {
+  const handleTrack = (state, index) => {
     switch (state) {
-      case "pause":
-        alert("Pause the video");
-        break;
-      case "play":
-        setvideoOnTrack((prev) => ({ ...prev, isPlaying: true }));
-        alert("Play the video");
-        break;
       case "replay":
-        setvideoOnTrack((prev) => ({ ...prev, videoId: 0 }));
-        alert("Replay the video");
+        setvideoOnTrack((prev) => ({ ...prev, isLastVideo: true, videoId: 0 }));
+        console.log(videoOnTrack);
+        break;
+      case "pause or play":
+        setvideoOnTrack((prev) => ({ ...prev, onTrack: !prev.onTrack }));
+        break;
+      case "last-video":
+        setvideoOnTrack((prev) => ({ ...prev, onTrack: false }));
+        alert("Play the video");
+        console.log(videoOnTrack);
+        break;
+      case "next":
+        setvideoOnTrack((prev) => ({
+          ...prev,
+          videoId: prev.videoId + 1,
+        }));
+        console.log(videoOnTrack);
         break;
     }
   };
 
   useEffect(() => {
-    console.log(videosRef);
-    console.log(videoDivRef);
-    console.log(videoSpanRef);
+    onTrack && videosRef.current[videoId].pause();
+    !onTrack && videosRef.current[videoId].play();
   }, []);
 
   useGSAP(() => {
@@ -92,13 +98,14 @@ export default function Highlight() {
                   <video
                     preload="auto"
                     playsInline={true}
-                    autoPlay
                     muted
                     ref={(el) => (videosRef.current[index] = el)}
-                    // onPlay={setvideoOnTrack((prev) => ({
-                    //   ...prev,
-                    //   onTrack: true,
-                    // }))}
+                    onPlay={() => {
+                      setvideoOnTrack((prev) => ({
+                        ...prev,
+                        onTrack: true,
+                      }));
+                    }}
                   >
                     <source type="video/mp4" src={slide.video} />
                   </video>
@@ -141,12 +148,12 @@ export default function Highlight() {
               ? () => {
                   handleTrack("replay");
                 }
-              : !isLastVideo && onTrack
+              : !isLastVideo
               ? () => {
-                  handleTrack("pause");
+                  !isEnd && handleTrack("pause or play");
                 }
               : () => {
-                  handleTrack("play");
+                  isEnd && handleTrack("next");
                 }
           }
         >
