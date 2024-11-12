@@ -1,8 +1,17 @@
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+
 export default function CloserLook() {
+  useGSAP(() => {
+    gsap.to(".title", {
+      y: 0,
+      opacity: 1,
+    });
+  }, []);
   return (
-    <section className="container h-screen flex flex-col justify-evenly items-center">
+    <section className="container h-screen flex flex-col justify-between items-center">
       <h2 className="title text-white">Take a closer look</h2>
-      <div className="closerlook_container h-[70vh] border-solid border-2 border-white "></div>
+      <div className="closerlook_container h-[75vh] max-sm:h-[80vh]"></div>
       <div className="flex flex-col gap-5 items-center">
         <p className="text-white text-[20px] font-poppins">
           iPhone 15 Pro in Blue Titanium.

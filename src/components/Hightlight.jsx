@@ -38,13 +38,15 @@ export default function Highlight() {
         }));
         console.log(videoOnTrack);
         break;
+      default:
+        return videoOnTrack;
     }
   };
 
   useEffect(() => {
     onTrack && videosRef.current[videoId].pause();
     !onTrack && videosRef.current[videoId].play();
-  }, []);
+  });
 
   useGSAP(() => {
     gsap.to("#title", { opacity: 1, y: 0, duration: 1 });
