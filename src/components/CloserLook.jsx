@@ -1,13 +1,36 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { models, sizes } from "../constants";
+import { useState } from "react";
 
 export default function CloserLook() {
+  /*
+          Hooks Section           
+  */
+
+  // State and Ref
+  const [sizePhone, setSizePhone] = useState('6.1"');
+  const [model, setModel] = useState({
+    size: '6.1"',
+    color: null,
+    name: null,
+  });
+
+  // GSAP animation and Effect
   useGSAP(() => {
     gsap.to(".title", {
       y: 0,
       opacity: 1,
     });
   }, []);
+
+  /*
+          Functionalities Section           
+   */
+
+  /*
+          Rendering Part           
+   */
   return (
     <section className="container h-screen flex flex-col justify-between items-center">
       <h2 className="title text-white">Take a closer look</h2>
@@ -21,19 +44,33 @@ export default function CloserLook() {
             id="Sliders Icons"
             className="w-[170px] h-[55px] flex gap-[15px] items-center"
           >
-            <div className="w-[24px] h-[24px] bg-[#FFFFFF] opacity-90 rounded-full"></div>
-            <div className="w-[24px] h-[24px] bg-[#FFFFFF] opacity-90 rounded-full"></div>
-            <div className="w-[24px] h-[24px] bg-[#FFFFFF] opacity-90 rounded-full"></div>
-            <div className="w-[24px] h-[24px] bg-[#FFFFFF] opacity-90 rounded-full"></div>
+            {models.map((model) => (
+              <div
+                key={model.id}
+                className="w-[24px] h-[24px] bg-[#FFFFFF] opacity-90 rounded-full cursor-pointer"
+                style={{ backgroundColor: model.color[0] }}
+              ></div>
+            ))}
           </div>
-          <div className="flex gap-[15px]">
-            <div className="w-[32px] h-[32px]  opacity-50 rounded-full bg-[#FFFFFF] ">
-              <p className="text-white">6.1”</p>
-            </div>
-            <div className="w-[32px] h-[32px]   rounded-full bg-[#FFFFFF] opacity-50">
-              <p className="text-[#FFFFFF]  opacity-90">6.1”</p>
-            </div>
-          </div>
+          <button className="flex gap-[15px] bg-white bg-opacity-50 rounded-3xl p-2">
+            {sizes.map((size) => (
+              <div
+                key={size.value}
+                className="flex justify-center items-center w-[32px] h-[32px]   rounded-full text-white"
+                style={{
+                  backgroundColor:
+                    size.label === model.size ? "white" : "transparent",
+                  color: size.label === model.size ? "black" : "white",
+                }}
+                onClick={() => {
+                  setModel((model) => ({ ...model, size: size.label }));
+                  setSizePhone(size.label);
+                }}
+              >
+                {size.label}
+              </div>
+            ))}
+          </button>
         </div>
       </div>
     </section>
