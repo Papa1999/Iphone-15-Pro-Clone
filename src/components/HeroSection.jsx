@@ -6,7 +6,7 @@ import { useEffect } from "react";
 
 export default function HeroSection() {
   useGSAP(() => {
-    gsap.to("#heroTitle", { opacity: 1, y: 0, delay: 1.1 });
+    gsap.to("#Store", { opacity: 1, y: 0, delay: 1.1 });
     gsap.to("#video_wrapper", { opacity: 1, y: 0 });
     gsap.to("#video_wrapper", { opacity: 1 });
     gsap.to("#btn", { opacity: 1, y: 0, delay: 1.1 });
@@ -35,7 +35,7 @@ export default function HeroSection() {
 
   return (
     <section className="container flex flex-col items-center text-white h-screen justify-evenly">
-      <h2 className="title opacity-0" id="heroTitle">
+      <h2 className="title opacity-0" id="Store">
         iPhone 15 Pro
       </h2>
       <div id="video_wrapper" className="opacity-0">

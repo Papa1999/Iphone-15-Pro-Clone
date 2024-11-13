@@ -49,7 +49,7 @@ export default function Highlight() {
   });
 
   useGSAP(() => {
-    gsap.to("#title", { opacity: 1, y: 0, duration: 1 });
+    gsap.to("#Mac", { opacity: 1, y: 0, duration: 1 });
     gsap.to(".link", {
       opacity: 1,
       y: 0,
@@ -66,7 +66,7 @@ export default function Highlight() {
       className="w-full h-screen text-white flex flex-col bg-[#232323] justify-around"
     >
       <div className="container flex  max-md:flex-col max-md:gap-5 justify-between">
-        <h2 id="title" className="title">
+        <h2 id="Mac" className="title">
           Get The Hightlight.
         </h2>
         <div className="flex gap-5 ">

@@ -9,11 +9,14 @@ export default function Navbar() {
       </div>
       <ul id="navLinks" className="flex gap-[30px] max-md:hidden">
         {navLists.map((item, index) => (
-          <li id="navLink" className="font-roboto text-[22px] font-normal" key={index}>
-            {item}
+          <li
+            id="navLink"
+            className="font-roboto text-[22px] font-normal cursor-pointer"
+            key={index}
+          >
+            <a href={`#${item}`}>{item}</a>
           </li>
         ))}
-
       </ul>
       <div id="icons" className="flex gap-[20px]">
         <div className="flex items-center justify-center">
