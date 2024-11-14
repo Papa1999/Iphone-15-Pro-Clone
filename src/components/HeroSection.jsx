@@ -34,11 +34,11 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="container flex flex-col items-center text-white h-screen justify-evenly">
+    <section className="container flex flex-col items-center text-white h-screen justify-center">
       <h2 className="title opacity-0" id="Store">
         iPhone 15 Pro
       </h2>
-      <div id="video_wrapper" className="opacity-0">
+      <div id="video_wrapper" className="opacity-0 my-5 ">
         <video
           className="pointer-events-none"
           autoPlay
@@ -51,7 +51,7 @@ export default function HeroSection() {
         </video>
       </div>
 
-      <div className="flex flex-col items-center gap-10">
+      <div className="flex flex-col items-center gap-2">
         <button className="btn opacity-0 translate-y-[80px]" id="btn">
           Buy
         </button>

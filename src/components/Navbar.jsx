@@ -3,7 +3,7 @@ import { apple, bag, search } from "../utils";
 
 export default function Navbar() {
   return (
-    <nav className="container mt-[30px] flex justify-between items-center h-[50px] text-white">
+    <nav className="container flex justify-between items-center h-[50px] text-white">
       <div id="logo">
         <img src={apple} width={24} alt="Apple Logo" />
       </div>
@@ -11,7 +11,7 @@ export default function Navbar() {
         {navLists.map((item, index) => (
           <li
             id="navLink"
-            className="font-roboto text-[22px] font-normal cursor-pointer"
+            className="font-roboto text-sm text-gray-500 hover:text-white font-normal cursor-pointer"
             key={index}
           >
             <a href={`#${item}`}>{item}</a>

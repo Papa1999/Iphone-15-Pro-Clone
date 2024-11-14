@@ -45,7 +45,7 @@ export default function Highlight() {
 
   useEffect(() => {
     onTrack && videosRef.current[videoId].pause();
-    !onTrack && videosRef.current[videoId].play();
+    // !onTrack && videosRef.current[videoId].play();
   });
 
   useGSAP(() => {
@@ -63,7 +63,7 @@ export default function Highlight() {
   return (
     <section
       id="Hightlight"
-      className="w-full h-screen text-white flex flex-col bg-[#232323] justify-around"
+      className="common-padding w-full h-screen text-white flex flex-col bg-[#232323] justify-around"
     >
       <div className="container flex  max-md:flex-col max-md:gap-5 justify-between">
         <h2 id="Mac" className="title">

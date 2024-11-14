@@ -40,7 +40,7 @@ export default function CloserLook() {
         Take a closer look
       </h2>
       <div className="closerlook_container h-[75vh] max-sm:h-[80vh]">
-        <Iphone />
+        {/* <Iphone /> */}
       </div>
       <div className="flex flex-col gap-5 items-center">
         <p className="text-white text-[20px] font-poppins">{title}.</p>
