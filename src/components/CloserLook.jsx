@@ -35,14 +35,14 @@ export default function CloserLook() {
           Rendering Part           
    */
   return (
-    <section className="container h-screen flex flex-col justify-between items-center">
+    <section className="container pdy-80 min-h-screen flex flex-col items-center">
       <h2 className="title text-white" id="iPhone">
         Take a closer look
       </h2>
-      <div className="closerlook_container h-[75vh] max-sm:h-[80vh]">
+      <div className="container xl:min-h-[70vh] my-[20px] max-sm:h-[80vh] bg-white">
         {/* <Iphone /> */}
       </div>
-      <div className="flex flex-col gap-5 items-center">
+      <div className="flex flex-col items-center">
         <p className="text-white text-[20px] font-poppins">{title}.</p>
         <div className="flex  items-center">
           <div

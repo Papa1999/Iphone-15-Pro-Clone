@@ -34,8 +34,8 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="container flex flex-col items-center text-white h-screen justify-center">
-      <h2 className="title opacity-0" id="Store">
+    <section className="container flex flex-col space-y-[30px] text-white h-screen ">
+      <h2 className="title opacity-0 text-center mt-[20px]" id="Store">
         iPhone 15 Pro
       </h2>
       <div id="video_wrapper" className="opacity-0 my-5 ">
@@ -51,8 +51,11 @@ export default function HeroSection() {
         </video>
       </div>
 
-      <div className="flex flex-col items-center gap-2">
-        <button className="btn opacity-0 translate-y-[80px]" id="btn">
+      <div className="flex flex-col items-center gap-[10px]">
+        <button
+          className="btn opacity-0 translate-y-[80px]  hover:bg-transparent hover:border-[#2997FF] hover:border hover:text-[#2997FF]"
+          id="btn"
+        >
           Buy
         </button>
         <p

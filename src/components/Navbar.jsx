@@ -3,7 +3,7 @@ import { apple, bag, search } from "../utils";
 
 export default function Navbar() {
   return (
-    <nav className="container flex justify-between items-center h-[50px] text-white">
+    <nav className="container flex justify-between items-center h-[50px] text-white mt-[10px] ">
       <div id="logo">
         <img src={apple} width={24} alt="Apple Logo" />
       </div>

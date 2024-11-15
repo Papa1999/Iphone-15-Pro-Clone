@@ -6,12 +6,20 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
 @layer utilities {
   .container {
-    @apply xl:w-[945px] md:w-[690px] max-md:w-5/6 mx-auto;
+    @apply max-w-full px-[80px] ;
   }
+
   .carousel {
-    @apply w-[1032px]  max-md:container mx-auto;
+    @apply w-[1032px] max-md:container mx-auto;
   }
   .closerlook_container {
     @apply xl:w-[769px] md:w-[576px] max-md:w-5/6 mx-auto;
@@ -21,6 +29,21 @@
   }
   .common-padding {
     @apply py-32 px-10 max-sm:py-20 max-sm:px-5;
+  }
+  .pdy-128 {
+    @apply py-[128px];
+  }
+  .pdy-80 {
+    @apply py-[80px];
+  }
+  .pdy-40 {
+    @apply py-[80px];
+  }
+  .pdx-80 {
+    @apply px-[80px];
+  }
+  .pdx-20 {
+    @apply px-[20px];
   }
 }
 

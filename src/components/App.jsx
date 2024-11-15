@@ -1,4 +1,12 @@
-import { HeroSection, Hightlight, CloserLook, Navbar } from "./index";
+import {
+  HeroSection,
+  Hightlight,
+  CloserLook,
+  Navbar,
+  FullStory,
+  Gaming,
+  Footer,
+} from "./index";
 
 export default function App() {
   return (
@@ -7,6 +15,9 @@ export default function App() {
       <HeroSection />
       <Hightlight />
       <CloserLook />
+      <FullStory />
+      <Gaming />
+      <Footer />
     </main>
   );
 }
