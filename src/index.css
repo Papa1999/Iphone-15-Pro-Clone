@@ -45,6 +45,9 @@
   .pdx-20 {
     @apply px-[20px];
   }
+  .pdy-20 {
+    @apply py-[20px];
+  }
 }
 
 @layer components {

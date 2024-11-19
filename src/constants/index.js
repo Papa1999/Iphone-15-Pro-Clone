@@ -88,11 +88,11 @@ export const footerLinks = [
 
 export const hightLightLinks = [
   {
-    text: "watch the film",
+    text: "Watch the film",
     icon: play,
   },
   {
-    text: "watch the event",
+    text: "Watch the event",
     icon: right,
   },
 ];

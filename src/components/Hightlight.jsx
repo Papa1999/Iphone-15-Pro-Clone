@@ -49,13 +49,13 @@ export default function Highlight() {
   });
 
   useGSAP(() => {
-    gsap.to("#Mac", { opacity: 1, y: 0, duration: 1 });
+    gsap.to("#Mac", { opacity: 1, y: 0, duration: 0.8 });
     gsap.to(".link", {
       opacity: 1,
       y: 0,
       stagger: 0.25,
-      delay: 1,
-      duration: 1,
+      delay: 0.5,
+      duration: 0.8,
     });
     gsap.to("#Carousel_container", { opacity: 1, delay: 1.5 });
   });
@@ -66,7 +66,10 @@ export default function Highlight() {
       className="container min-h-screen text-white flex flex-col bg-[#232323] justify-around pdy-128"
     >
       <div className="container flex  max-md:flex-col max-md:gap-5 justify-between">
-        <h2 id="Mac" className="title">
+        <h2
+          id="Mac"
+          className="opacity-0 text-4xl font-medium text-[#86868b] translate-y-20 "
+        >
           Get The Hightlight.
         </h2>
         <div className="flex gap-5 ">
@@ -75,7 +78,7 @@ export default function Highlight() {
               key={index}
               className="flex items-center gap-2 link opacity-0 translate-y-20"
             >
-              <a href="/" className="text-[#2997FF] text-[15px]">
+              <a href="/" className="text-[#2997FF] text-xl font-normal ">
                 {link.text}
               </a>
               <div>
@@ -114,7 +117,7 @@ export default function Highlight() {
             <div className="absolute top-8 left-12">
               {slide.textLists.map((text, id) => (
                 <div key={id}>
-                  <p className="md:text-2xl text-xl">{text}</p>
+                  <p className="md:text-2xl text-xl font-semibold">{text}</p>
                 </div>
               ))}
             </div>

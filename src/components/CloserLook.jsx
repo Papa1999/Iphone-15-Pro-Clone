@@ -21,9 +21,9 @@ export default function CloserLook() {
 
   // GSAP animation and Effect
   useGSAP(() => {
-    gsap.to(".title", {
-      y: 0,
+    gsap.to("#iPhone", {
       opacity: 1,
+      y: 0,
     });
   }, []);
 
@@ -36,7 +36,10 @@ export default function CloserLook() {
    */
   return (
     <section className="container pdy-80 min-h-screen flex flex-col items-center">
-      <h2 className="title text-white" id="iPhone">
+      <h2
+        className="opacity-0 text-4xl font-medium text-[#86868b] translate-y-20"
+        id="iPhone"
+      >
         Take a closer look
       </h2>
       <div className="container xl:min-h-[70vh] my-[20px] max-sm:h-[80vh] bg-white">
