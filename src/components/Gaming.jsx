@@ -18,17 +18,17 @@ export default function Gaming() {
       <p className="text-2xl text-center text-[#86868b] font-semibold mt-[50px]">
         It's Here The biggest design in history of Apple GPUs.{" "}
       </p>
-      <div className="relative w-full px-10 mt-[100px]">
-        <div>
+      <div className="relative w-full mt-[100px] mb-[50px] flex flex-col items-center">
+        <div className="z-10 max-w-[1140px]">
           <img src={frameImg} alt="frame" />
         </div>
-        <div className="w-full absolute top-0 left-0 ">
+        <div className="max-w-[1100px] h-full absolute top-0 flex items-center">
           <video
             playsInline={true}
             autoPlay
             muted
             loop
-            className="rounded-[80px] "
+            className="rounded-[60px] max-md:rounded-[40px] px-[10px] "
           >
             <source src={frameVid} type="video/mp4" />
           </video>
