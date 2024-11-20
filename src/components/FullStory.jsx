@@ -62,7 +62,7 @@ export default function FullStory() {
             />
           </div>
         </div>
-        <div className="w-full flex">
+        <div className="w-full flex gap-10">
           <p className="text-[#86868b] font-semibold text-xl">
             Iphone 15 Pro is{" "}
             <span className="text-white">

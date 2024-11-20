@@ -9,8 +9,8 @@ export default function HeroSection() {
     gsap.to("#Store", { opacity: 1, y: 0, delay: 1.1 });
     gsap.to("#video_wrapper", { opacity: 1, y: 0 });
     gsap.to("#video_wrapper", { opacity: 1 });
-    gsap.to("#btn", { opacity: 1, y: 0, delay: 1.1 });
-    gsap.to("#paragraph", { opacity: 1, y: 0, delay: 1.1 });
+    gsap.to("#btn", { opacity: 1, y: 0, delay: 1.5 });
+    gsap.to("#paragraph", { opacity: 1, y: 0, delay: 1.8 });
   }, []);
 
   const [heroVideo, setheroVideo] = useState(

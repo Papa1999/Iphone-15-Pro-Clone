@@ -19,14 +19,16 @@ export default function Gaming() {
         It's Here The biggest design in history of Apple GPUs.{" "}
       </p>
       <div className="relative w-full px-10 mt-[100px]">
-        <img src={frameImg} alt="frame" className="mx-auto" />
-        <div className=" mx-auto flex justify-center absolute top-[25px] pl-[50px] ">
+        <div>
+          <img src={frameImg} alt="frame" />
+        </div>
+        <div className="w-full absolute top-0 left-0 ">
           <video
             playsInline={true}
             autoPlay
             muted
             loop
-            className="rounded-[80px] max-w-3/5"
+            className="rounded-[80px] "
           >
             <source src={frameVid} type="video/mp4" />
           </video>
