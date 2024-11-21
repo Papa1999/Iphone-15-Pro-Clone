@@ -2,7 +2,6 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { models, sizes } from "../constants";
 import { useState } from "react";
-import Iphone from "./iPhone";
 
 export default function CloserLook() {
   /*
@@ -12,12 +11,10 @@ export default function CloserLook() {
   // State and Ref
   const [sizePhone, setSizePhone] = useState("small");
   const [model, setModel] = useState({
-    img: null,
-    color: null,
     title: "iPhone 15 Pro in Natural Titanium",
   });
 
-  const { color, img, title } = model;
+  const { title } = model;
 
   // GSAP animation and Effect
   useGSAP(() => {
@@ -42,7 +39,7 @@ export default function CloserLook() {
       >
         Take a closer look
       </h2>
-      <div className="container xl:min-h-[70vh] my-[20px] max-sm:h-[80vh] bg-white">
+      <div className="container min-h-[70vh] my-[20px] max-sm:h-[80vh] bg-white">
         {/* <Iphone /> */}
       </div>
       <div className="flex flex-col items-center">
