@@ -96,7 +96,7 @@ export default function Highlight() {
         </div>
         <div
           id="Carousel_container"
-          className="container h-[440px] flex overflow-x-scroll gap-5 max-md:gap-10  opacity-0 my-[40px]"
+          className="container h-[440px] flex gap-5 max-md:gap-10  opacity-0 my-[40px]"
         >
           {hightlightsSlides.map((slide, index) => (
             <div
