@@ -34,12 +34,12 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="max-w-full flex justify-center text-white">
-      <div className="container md-padding-x h-screen flex flex-col justify-around">
-        <h2 className="title opacity-0 text-center mt-[20px]" id="Store">
+    <section className="max-w-full flex justify-center  text-white">
+      <div className="container md-padding-x h-screen flex flex-col justify-center max-lg:justify-around">
+        <h2 className="title opacity-0 text-center xl:mb-2" id="Store">
           iPhone 15 Pro
         </h2>
-        <div id="video_wrapper" className="opacity-0 my-5 ">
+        <div id="video_wrapper" className="opacity-0">
           <video
             className="pointer-events-none"
             autoPlay

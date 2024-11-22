@@ -1,8 +1,10 @@
-import { useGSAP } from "@gsap/react";
 import { pause, playWhite, replay } from "../utils";
 import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/all";
 import { hightLightLinks, hightlightsSlides } from "../constants";
 import { useRef, useEffect, useState } from "react";
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Highlight() {
   /* Ref and States */
@@ -10,7 +12,7 @@ export default function Highlight() {
   const videoDivRef = useRef([]);
   const videoSpanRef = useRef([]);
 
-  const [videoId, setvideoId] = useState(0);
+  const [videoId, setvideoId] = useState(1);
 
   const [videoOnTrack, setvideoOnTrack] = useState({
     isLastVideo: videoId === 3 ? true : false,
@@ -49,10 +51,6 @@ export default function Highlight() {
 
   /* Animations and Effect */
 
-  useEffect(() => {
-    console.log(videoOnTrack);
-  });
-
   useGSAP(() => {
     gsap.to("#Mac", { opacity: 1, y: 0, duration: 0.8 });
     gsap.to(".link", {
@@ -65,13 +63,47 @@ export default function Highlight() {
     gsap.to("#Carousel_container", { opacity: 1, delay: 1.5 });
   });
 
+  useGSAP(() => {
+    gsap.to("#slider", {
+      transform: `translateX(${-100 * videoId}%)`,
+      duration: 2,
+      delay: 1,
+      ease: "power2.inOut",
+      scrollTrigger: {
+        trigger: "#slider",
+        toggleActions: "restart none none none",
+      },
+      onStart: () => {
+        videoId &&
+          setvideoOnTrack((prev) => ({
+            ...prev,
+            onTrack: true,
+            startPlay: true,
+          }));
+      },
+      onComplete: () => {
+        if (videoId) {
+          setvideoId((videoId) => (videoId === 3 ? 0 : videoId + 1));
+        } else {
+          setvideoOnTrack((prev) => ({
+            ...prev,
+            onTrack: false,
+            isEnd: true,
+            startPlay: true,
+          }));
+          setvideoId(null);
+        }
+      },
+    });
+  }, [videoId]);
+
   return (
     <section
       id="Hightlight"
       className="max-w-full min-h-screen text-white flex flex-col bg-[#232323] justify-center xl-padding-y"
     >
       <div className="container">
-        <div className="flex  max-md:flex-col max-md:gap-5 justify-between">
+        <div className=" flex justify-between max-md:flex-col max-md:gap-5 ">
           <h2
             id="Mac"
             className="opacity-0 text-6xl font-medium text-[#86868b] translate-y-20 "
@@ -96,15 +128,17 @@ export default function Highlight() {
         </div>
         <div
           id="Carousel_container"
-          className="container h-[440px] flex gap-5 max-md:gap-10  opacity-0 my-[40px]"
+          className="w-full h-[440px] px-[80px] max-lg:px-[40px] mx-auto flex gap-5 max-md:gap-10 opacity-0 my-[40px] overflow-hidden"
         >
           {hightlightsSlides.map((slide, index) => (
             <div
+              id="slider"
               key={slide.id}
               className="min-w-[90%] h-full bg-black rounded-3xl flex items-center justify-center text-lg font-semibold max-sm:min-w-[100%] max-md:min-w-[90%] relative "
             >
               <div className="h-full flex items-center justify-center">
                 <video
+                  id="video"
                   className="h-4/5"
                   preload="auto"
                   playsInline={true}
@@ -161,7 +195,7 @@ export default function Highlight() {
                 ? handleTrack("pause", videoId)
                 : !isEnd
                 ? handleTrack("play", videoId)
-                : handleTrack("restart", videoId);
+                : handleTrack("reset", videoId);
             }}
           >
             <img
