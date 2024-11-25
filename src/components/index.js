@@ -6,6 +6,7 @@ import CloserLook from "./CloserLook";
 import FullStory from "./FullStory";
 import Gaming from "./Gaming";
 import Footer from "./Footer";
+import iPhone from "./iPhone"
 
 export {
   App,
@@ -15,5 +16,6 @@ export {
   CloserLook,
   FullStory,
   Gaming,
+  iPhone, 
   Footer,
 };
