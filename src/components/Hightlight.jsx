@@ -11,14 +11,18 @@ export default function Highlight() {
   const videosRef = useRef([]);
   const videoDivRef = useRef([]);
   const videoSpanRef = useRef([]);
+  // const videoDuration = useRef([
+  //   hightlightsSlides.map((slide) => slide.videoDuration),
+  // ]);
 
   const [videoId, setvideoId] = useState(1);
+  const [loadedData, setloadedData] = useState([]);
 
   const [videoOnTrack, setvideoOnTrack] = useState({
     isLastVideo: videoId === 3 ? true : false,
-    startPlay: false,
-    onTrack: false,
-    isEnd: false,
+    startPlay: null,
+    onTrack: null,
+    isEnd: null,
   });
 
   const { isLastVideo, startPlay, onTrack, isEnd } = videoOnTrack;
@@ -27,10 +31,11 @@ export default function Highlight() {
   const handleTrack = (state, index) => {
     switch (state) {
       case "next":
-        setvideoId(() => index + 1);
+        setvideoId((prev) => prev + 1);
         break;
       case "reset":
         setvideoId(0);
+        setvideoOnTrack((prev) => ({ ...prev, isEnd: true }));
         break;
       case "pause":
         setvideoOnTrack((prev) => ({
@@ -49,19 +54,19 @@ export default function Highlight() {
     }
   };
 
+  const handleLoadedMetaData = (i, e) => setloadedData((prev) => [...prev, e]);
+
   /* Animations and Effect */
 
-  useGSAP(() => {
-    gsap.to("#Mac", { opacity: 1, y: 0, duration: 0.8 });
-    gsap.to(".link", {
-      opacity: 1,
-      y: 0,
-      stagger: 0.25,
-      delay: 0.5,
-      duration: 0.8,
-    });
-    gsap.to("#Carousel_container", { opacity: 1, delay: 1.5 });
-  });
+  useEffect(() => {
+    if ((loadedData.length = 4)) {
+      if (onTrack && videoId !== 0) {
+        videosRef.current[videoId - 1].play();
+      } else {
+        isEnd && videosRef.current[videoId - 1].pause();
+      }
+    }
+  }, [videoId, onTrack, isEnd]);
 
   useGSAP(() => {
     gsap.to("#slider", {
@@ -85,17 +90,23 @@ export default function Highlight() {
         if (videoId) {
           setvideoId((videoId) => (videoId === 3 ? 0 : videoId + 1));
         } else {
-          setvideoOnTrack((prev) => ({
-            ...prev,
-            onTrack: false,
-            isEnd: true,
-            startPlay: true,
-          }));
-          setvideoId(null);
+          setvideoOnTrack((prev) => ({ ...prev, onTrack: false, isEnd: true }));
         }
       },
     });
   }, [videoId]);
+
+  useGSAP(() => {
+    gsap.to("#Mac", { opacity: 1, y: 0, duration: 0.8 });
+    gsap.to(".link", {
+      opacity: 1,
+      y: 0,
+      stagger: 0.25,
+      delay: 0.5,
+      duration: 0.8,
+    });
+    gsap.to("#Carousel_container", { opacity: 1, delay: 1.5 });
+  });
 
   return (
     <section
@@ -148,8 +159,10 @@ export default function Highlight() {
                     setvideoOnTrack((prev) => ({
                       ...prev,
                       onTrack: true,
+                      startPlay: true,
                     }));
                   }}
+                  onLoadedMetadata={(e) => handleLoadedMetaData(index, e)}
                   onEnded={() => {
                     !isLastVideo
                       ? handleTrack("next", index)
