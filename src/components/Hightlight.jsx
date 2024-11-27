@@ -11,15 +11,12 @@ export default function Highlight() {
   const videosRef = useRef([]);
   const videoDivRef = useRef([]);
   const videoSpanRef = useRef([]);
-  // const videoDuration = useRef([
-  //   hightlightsSlides.map((slide) => slide.videoDuration),
-  // ]);
 
-  const [videoId, setvideoId] = useState(1);
+  const [videoId, setvideoId] = useState(0);
   const [loadedData, setloadedData] = useState([]);
 
   const [videoOnTrack, setvideoOnTrack] = useState({
-    isLastVideo: videoId === 3 ? true : false,
+    isLastVideo: false,
     startPlay: null,
     onTrack: null,
     isEnd: null,
@@ -31,6 +28,7 @@ export default function Highlight() {
   const handleTrack = (state, index) => {
     switch (state) {
       case "next":
+        if (videoId === 3) setvideoOnTrack((prev) => ({ ...prev, isLastVideo: true }));
         setvideoId((prev) => prev + 1);
         break;
       case "reset":
@@ -60,38 +58,33 @@ export default function Highlight() {
 
   useEffect(() => {
     if ((loadedData.length = 4)) {
-      if (onTrack && videoId !== 0) {
-        videosRef.current[videoId - 1].play();
-      } else {
-        isEnd && videosRef.current[videoId - 1].pause();
+      if (onTrack && !isEnd) {
+        videosRef.current[videoId].play();
       }
     }
-  }, [videoId, onTrack, isEnd]);
+  }, [videoId, onTrack, isEnd, loadedData]);
 
   useGSAP(() => {
     gsap.to("#slider", {
-      transform: `translateX(${-100 * videoId}%)`,
+      transform: `translateX(${
+        videoId === 0 ? -100 : videoId === -1 ? 0 : -100 * videoId
+      }%)`,
       duration: 2,
-      delay: 1,
+      delay: `${videoId === 0 ? 1 : 0.5}`,
       ease: "power2.inOut",
       scrollTrigger: {
         trigger: "#slider",
         toggleActions: "restart none none none",
       },
-      onStart: () => {
-        videoId &&
-          setvideoOnTrack((prev) => ({
-            ...prev,
-            onTrack: true,
-            startPlay: true,
-          }));
-      },
       onComplete: () => {
-        if (videoId) {
-          setvideoId((videoId) => (videoId === 3 ? 0 : videoId + 1));
-        } else {
-          setvideoOnTrack((prev) => ({ ...prev, onTrack: false, isEnd: true }));
-        }
+        videoId !== 3
+          ? setvideoId((videoId) => videoId + 1)
+          : setvideoId((videoId) => -1);
+        setvideoOnTrack((prev) => ({
+          ...prev,
+          onTrack: false,
+          isEnd: true,
+        }));
       },
     });
   }, [videoId]);
@@ -164,9 +157,9 @@ export default function Highlight() {
                   }}
                   onLoadedMetadata={(e) => handleLoadedMetaData(index, e)}
                   onEnded={() => {
-                    !isLastVideo
-                      ? handleTrack("next", index)
-                      : handleTrack("reset", index);
+                    isLastVideo
+                      ? handleTrack("reset", index)
+                      : handleTrack("next", index);
                   }}
                 >
                   <source type="video/mp4" src={slide.video} />
