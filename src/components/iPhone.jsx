@@ -6,9 +6,9 @@ import { yellowImg } from "../utils";
 
 import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
-import { View } from "@react-three/drei";
+import { View } from "@react-three/drei"; 
 import { models, sizes } from "../constants";
-// import { animateWithGsapTimeline } from "../utils/animations";
+import { animateWithGsapTimeline } from "../utils/animations";
 
 const Model = () => {
   const [size, setSize] = useState("small");
