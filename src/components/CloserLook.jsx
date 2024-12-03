@@ -1,88 +1,144 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { useEffect, useRef, useState } from "react";
+import { yellow } from "../utils";
+import { ModelView } from ".";
+import * as THREE from "three";
+import { Canvas } from "@react-three/fiber";
+import { View } from "@react-three/drei";
 import { models, sizes } from "../constants";
-import { useState } from "react";
+import { animateWithGsapTimeline } from "../utils/animations";
 
-export default function CloserLook() {
-  /*
-          Hooks Section           
-  */
-
-  // State and Ref
-  const [sizePhone, setSizePhone] = useState("small");
+const Model = () => {
+  /* States */
+  const [size, setSize] = useState("small");
   const [model, setModel] = useState({
     title: "iPhone 15 Pro in Natural Titanium",
+    color: ["#8F8A81", "#FFE7B9", "#6F6C64"],
+    img: yellow,
   });
 
-  const { title } = model;
+  // Angle of rotation
+  const [smallRotation, setSmallRotation] = useState(0);
+  const [largeRotation, setLargeRotation] = useState(0);
 
-  // GSAP animation and Effect
+  // Camera control for the model view
+  const cameraControlSmall = useRef();
+  const cameraControlLarge = useRef();
+
+  // Group for the Model
+  const small = useRef(new THREE.Group());
+  const large = useRef(new THREE.Group());
+
+  const tl = gsap.timeline();
+
+  /* 
+        Effect and Animation    
+  */
+  useEffect(() => {
+    if (size === "large") {
+      animateWithGsapTimeline(tl, small, smallRotation, "#view1", "#view2", {
+        transform: "translateX(-100%)",
+        duration: 2,
+      });
+    }
+
+    if (size === "small") {
+      animateWithGsapTimeline(tl, large, largeRotation, "#view2", "#view1", {
+        transform: "translateX(0)",
+        duration: 2,
+      });
+    }
+  }, [size]);
+
   useGSAP(() => {
-    gsap.to("#iPhone", {
-      opacity: 1,
-      y: 0,
-    });
+    gsap.to("#heading", { y: 0, opacity: 1 });
   }, []);
 
-  /*
-          Functionalities Section           
-   */
-
-  /*
-          Rendering Part           
-   */
+  /* 
+        Rendering of the component 
+  */
   return (
-    <section className="container pdy-80 min-h-screen flex flex-col items-center">
-      <h2
-        className="opacity-0 text-4xl font-medium text-[#86868b] translate-y-20"
-        id="iPhone"
-      >
-        Take a closer look
-      </h2>
-      <div className="container min-h-[70vh] my-[20px] max-sm:h-[80vh] bg-white">
-        {/* <Iphone /> */}
-      </div>
-      <div className="flex flex-col items-center">
-        <p className="text-white text-[20px] font-poppins">{title}.</p>
-        <div className="flex  items-center">
-          <div
-            id="Sliders Icons"
-            className="w-[170px] h-[55px] flex gap-[15px] items-center"
-          >
-            {models.map((singleModel) => (
-              <div
-                key={singleModel.id}
-                className="w-[24px] h-[24px] rounded-full cursor-pointer"
-                style={{ backgroundColor: singleModel.color[0] }}
-                onClick={() =>
-                  setModel((prevModel) => ({
-                    ...prevModel,
-                    color: singleModel.color[0],
-                  }))
-                }
-              ></div>
-            ))}
+    <section className="common-padding">
+      <div className="screen-max-width">
+        <h1 id="heading" className="section-heading">
+          Take a closer look.
+        </h1>
+
+        <div className="flex flex-col items-center mt-5">
+          <div className="w-full h-[75vh] md:h-[90vh] overflow-hidden relative">
+            <ModelView
+              index={1}
+              groupRef={small}
+              gsapType="view1"
+              controlRef={cameraControlSmall}
+              setRotationState={setSmallRotation}
+              item={model}
+              size={size}
+            />
+
+            <ModelView
+              index={2}
+              groupRef={large}
+              gsapType="view2"
+              controlRef={cameraControlLarge}
+              setRotationState={setLargeRotation}
+              item={model}
+              size={size}
+            />
+
+            <Canvas
+              className="w-full h-full"
+              style={{
+                position: "fixed",
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                overflow: "hidden",
+              }}
+              eventSource={document.getElementById("root")}
+            >
+              <View.Port />
+            </Canvas>
           </div>
-          <button className="flex gap-[15px] bg-white bg-opacity-50 rounded-3xl p-2">
-            {sizes.map((size) => (
-              <div
-                key={size.value}
-                className="flex justify-center items-center w-[32px] h-[32px]   rounded-full text-white"
-                style={{
-                  backgroundColor:
-                    size.value === sizePhone ? "white" : "transparent",
-                  color: size.value === sizePhone ? "black" : "white",
-                }}
-                onClick={() => {
-                  setSizePhone((prevSize) => size.value);
-                }}
-              >
-                {size.label}
-              </div>
-            ))}
-          </button>
+
+          <div className="mx-auto w-full">
+            <p className="text-sm font-light text-center mb-5">{model.title}</p>
+
+            <div className="flex-center">
+              <ul className="">
+                {models.map((item, i) => (
+                  <li
+                    key={i}
+                    className="w-6 h-6 rounded-full mx-2 cursor-pointer"
+                    style={{ backgroundColor: item.color[0] }}
+                    onClick={() => setModel(item)}
+                  />
+                ))}
+              </ul>
+
+              <button className="">
+                {sizes.map(({ label, value }) => (
+                  <span
+                    key={label}
+                    className=""
+                    style={{
+                      backgroundColor: size === value ? "white" : "transparent",
+                      color: size === value ? "black" : "white",
+                    }}
+                    onClick={() => setSize(value)}
+                  >
+                    {label}
+                  </span>
+                ))}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default Model;
