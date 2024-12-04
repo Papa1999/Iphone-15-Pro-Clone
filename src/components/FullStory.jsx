@@ -9,17 +9,38 @@ export default function FullStory() {
 
   // State and Ref
 
+  /*
+          Functionalities Section           
+   */
+
   // GSAP animation and Effect
   useGSAP(() => {
     gsap.to("#FullStory", {
       y: 0,
       opacity: 1,
+      duration: 1,
+      stagger: 0.5,
+      scrollTrigger: {
+        trigger: "#FullStory",
+      },
+    });
+    gsap.to("#Bento", {
+      opacity: 1,
+      scrollTrigger: {
+        trigger: "#Bento",
+        start: "top 80%",
+      },
+    });
+    gsap.to("#ScaleImg", {
+      scale: 1,
+      duration: 3,
+      scrollTrigger: {
+        trigger: "#ScaleImg",
+        start: "top bottom",
+        toggleActions: "play none none reverse",
+      },
     });
   }, []);
-  /*
-          Functionalities Section           
-   */
-
   /*
           Rendering Part           
    */
@@ -33,10 +54,16 @@ export default function FullStory() {
           Explore the full Story.
         </h2>
         <div className="w-10/12 mx-auto mt-[100px] ">
-          <p className="text-5xl text-white font-semibold">
+          <p
+            id="FullStory"
+            className="text-5xl text-white font-semibold opacity-0 translate-y-20"
+          >
             iPhone. <br /> forged in titanium.{" "}
           </p>
-          <div className="my-[60px] grid grid-rows-2 grid-cols-2">
+          <div
+            id="Bento"
+            className="my-[60px] grid grid-rows-2 grid-cols-2 opacity-0"
+          >
             <div className="col-span-2">
               <video
                 playsInline={true}
@@ -48,18 +75,20 @@ export default function FullStory() {
                 <source src={explore} type="video/mp4" />
               </video>
             </div>
-            <div>
+            <div className="flex overflow-hidden">
               <img
+                id="ScaleImg"
                 src={explore1}
                 alt="eplore 1"
-                className="h-full w-full object-cover object-center"
+                className="h-full w-full object-fill object-center scale-150"
               />
             </div>
-            <div>
+            <div className="flex overflow-hidden">
               <img
+                id="ScaleImg"
                 src={explore2}
                 alt="eplore 2"
-                className="h-full w-full object-cover object-center"
+                className="h-full w-full object-cover object-center scale-150"
               />
             </div>
           </div>

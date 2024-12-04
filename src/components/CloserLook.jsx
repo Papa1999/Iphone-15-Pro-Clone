@@ -106,8 +106,8 @@ const Model = () => {
           <div className="mx-auto w-full">
             <p className="text-sm font-light text-center mb-5">{model.title}</p>
 
-            <div className="flex-center">
-              <ul className="">
+            <div className="flex justify-center gap-[50px]">
+              <ul className="flex bg-white bg-opacity-10 px-[18px] py-[20px] rounded-3xl ">
                 {models.map((item, i) => (
                   <li
                     key={i}
@@ -118,11 +118,11 @@ const Model = () => {
                 ))}
               </ul>
 
-              <button className="">
+              <button className="flex items-center gap-[10px] bg-white bg-opacity-10 rounded-3xl  px-[10px] px ">
                 {sizes.map(({ label, value }) => (
                   <span
                     key={label}
-                    className=""
+                    className=" flex items-center  w-[32px] h-[32px] rounded-full font-semibold p-[5px]"
                     style={{
                       backgroundColor: size === value ? "white" : "transparent",
                       color: size === value ? "black" : "white",
