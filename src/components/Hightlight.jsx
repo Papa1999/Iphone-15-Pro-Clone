@@ -28,7 +28,8 @@ export default function Highlight() {
   const handleTrack = (state, index) => {
     switch (state) {
       case "next":
-        if (videoId === 3) setvideoOnTrack((prev) => ({ ...prev, isLastVideo: true }));
+        if (videoId === 3)
+          setvideoOnTrack((prev) => ({ ...prev, isLastVideo: true }));
         setvideoId((prev) => prev + 1);
         break;
       case "reset":
@@ -74,7 +75,7 @@ export default function Highlight() {
       ease: "power2.inOut",
       scrollTrigger: {
         trigger: "#slider",
-        toggleActions: "restart none none none",
+        toggleActions: "restart none restart none",
       },
       onComplete: () => {
         videoId !== 3
@@ -132,18 +133,18 @@ export default function Highlight() {
         </div>
         <div
           id="Carousel_container"
-          className="w-full h-[440px] px-[80px] max-lg:px-[40px] mx-auto flex gap-5 max-md:gap-10 opacity-0 my-[40px] overflow-hidden"
+          className="w-full h-[440px] px-[80px] max-lg:px-[40px] mx-auto flex gap-10 max-md:gap-10 opacity-0 my-[40px] overflow-hidden"
         >
           {hightlightsSlides.map((slide, index) => (
             <div
               id="slider"
               key={slide.id}
-              className="min-w-[90%] h-full bg-black rounded-3xl flex items-center justify-center text-lg font-semibold max-sm:min-w-[100%] max-md:min-w-[90%] relative "
+              className="min-w-[80%] h-full bg-black rounded-3xl flex items-center justify-center text-lg font-semibold max-sm:min-w-[100%] max-md:min-w-[90%] relative "
             >
               <div className="h-full flex items-center justify-center">
                 <video
                   id="video"
-                  className="h-4/5"
+                  className="h-full rounded-3xl"
                   preload="auto"
                   playsInline={true}
                   muted
@@ -176,12 +177,12 @@ export default function Highlight() {
           ))}
         </div>
         <div className="flex items-center justify-center gap-6">
-          <div className="flex gap-2 h-[48px] bg-white bg-opacity-50 rounded-full justify-center  items-center px-[35px]">
+          <div className="flex gap-2 h-[48px] bg-white bg-opacity-10 rounded-full justify-center  items-center px-[35px]">
             {hightlightsSlides.map((_, index) => (
               <div
                 id="video_tracker"
                 key={index}
-                className="bg-white rounded-full h-[16px] w-[16px]"
+                className="bg-white rounded-full h-[16px] w-[16px] bg-opacity-40"
                 ref={(el) => (videoDivRef.current[index] = el)}
               >
                 <span
@@ -195,7 +196,7 @@ export default function Highlight() {
           </div>
           <button
             id="play_pause_replay"
-            className=" flex w-[48px] h-[48px] rounded-full bg-white bg-opacity-50 justify-center items-center"
+            className=" flex w-[48px] h-[48px] rounded-full bg-white bg-opacity-10 justify-center items-center"
             onClick={() => {
               onTrack
                 ? handleTrack("pause", videoId)

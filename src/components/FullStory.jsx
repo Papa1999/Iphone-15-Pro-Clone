@@ -1,6 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { explore, explore1, explore2 } from "../utils";
+import { gsapAnimate } from "../utils/animations";
 
 export default function FullStory() {
   /*
@@ -24,22 +25,24 @@ export default function FullStory() {
         trigger: "#FullStory",
       },
     });
-    gsap.to("#Bento", {
-      opacity: 1,
-      scrollTrigger: {
-        trigger: "#Bento",
-        start: "top 80%",
-      },
-    });
-    gsap.to("#ScaleImg", {
-      scale: 1,
-      duration: 3,
-      scrollTrigger: {
-        trigger: "#ScaleImg",
-        start: "top bottom",
-        toggleActions: "play none none reverse",
-      },
-    });
+
+    gsapAnimate(
+      "#Bento",
+      { opacity: 1 },
+      { toggleActions: "restart none restart none" }
+    );
+
+    gsapAnimate(
+      "#ScaleImg",
+      { scale: 1, duration: 6, repeat: -1, yoyo: true },
+      { toggleActions: "restart reverse restart reverse" }
+    );
+
+    gsapAnimate(
+      "#para",
+      { opacity: 1, y: 0 },
+      { toggleActions: "restart reverse restart reverse" }
+    );
   }, []);
   /*
           Rendering Part           
@@ -62,7 +65,7 @@ export default function FullStory() {
           </p>
           <div
             id="Bento"
-            className="my-[60px] grid grid-rows-2 grid-cols-2 opacity-0"
+            className="my-[60px] grid grid-rows-2 grid-cols-2 opacity-0 h-screen"
           >
             <div className="col-span-2">
               <video
@@ -80,7 +83,7 @@ export default function FullStory() {
                 id="ScaleImg"
                 src={explore1}
                 alt="eplore 1"
-                className="h-full w-full object-fill object-center scale-150"
+                className="h-full w-full scale-150 object-cover"
               />
             </div>
             <div className="flex overflow-hidden">
@@ -88,19 +91,25 @@ export default function FullStory() {
                 id="ScaleImg"
                 src={explore2}
                 alt="eplore 2"
-                className="h-full w-full object-cover object-center scale-150"
+                className="h-full w-full scale-150 object-cover"
               />
             </div>
           </div>
           <div className="w-full flex gap-10 max-lg:gap-5">
-            <p className="text-[#86868b] font-semibold text-xl">
+            <p
+              id="para"
+              className="text-[#86868b] font-semibold text-xl opacity-0 translate-y-20"
+            >
               Iphone 15 Pro is{" "}
               <span className="text-white">
                 the first iPhone to an aerospace-grade titanium design,
               </span>{" "}
               using the same alloy that spacecraft use for mission to Mars.{" "}
             </p>
-            <p className="text-[#86868b] font-semibold text-xl">
+            <p
+              id="para"
+              className="text-[#86868b] font-semibold text-xl opacity-0 translate-y-20"
+            >
               Titanium has one of the best strength-to-weight ratios of any
               metal, making these our{" "}
               <span className="text-white">lightest Pro models ever</span>.

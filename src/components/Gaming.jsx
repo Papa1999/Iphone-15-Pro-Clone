@@ -1,6 +1,21 @@
+import { useGSAP } from "@gsap/react";
 import { chip, frameImg, frameVid } from "../utils";
+import { gsapAnimate } from "../utils/animations";
 
 export default function Gaming() {
+  /* 
+          Hooks  
+  */
+  useGSAP(() => {
+    gsapAnimate(
+      "#par",
+      { y: 0, opacity: 1 },
+      { toggleActions: "restart reverse restart reverse" }
+    );
+  }, []);
+  /* 
+          Rendering  
+  */
   return (
     <section className="max-w-full xl-padding-y min-h-screen pdy-128 text-white">
       <div className="container">
@@ -40,13 +55,19 @@ export default function Gaming() {
         </p>
         <div className="flex justify-between">
           <div>
-            <p className="max-w-[452px] text-[#86868b] font-semibold text-xl mb-[30px]">
+            <p
+              id="par"
+              className="max-w-[452px] text-[#86868b] font-semibold text-xl mb-[30px] translate-y-20"
+            >
               A17 Pro is an entirely new class of iPhone chip that delivers our{" "}
               <span className="text-white">
                 best graphics performance by far.
               </span>
             </p>
-            <p className="max-w-[512px] text-[#86868b] font-semibold text-xl">
+            <p
+              id="par"
+              className="max-w-[512px] text-[#86868b] font-semibold text-xl opacity-0 translate-y-20"
+            >
               Mobile
               <span className="text-white">
                 {" "}
@@ -58,7 +79,10 @@ export default function Gaming() {
             </p>
           </div>
           <div className="max-w-[512px] flex-1">
-            <p className=" text-[#86868b] font-semibold text-xl">
+            <p
+              id="par"
+              className="text-[#86868b] font-semibold text-xl translate-y-20"
+            >
               New <br />
               <span className="font-bold text-5xl my-2 block text-white ">
                 Pro-class GPU
