@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/all";
 import { hightLightLinks, hightlightsSlides } from "../constants";
 import { useRef, useEffect, useState } from "react";
+import { gsapAnimate } from "../utils/animations";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Highlight() {
@@ -12,17 +13,17 @@ export default function Highlight() {
   const videoDivRef = useRef([]);
   const videoSpanRef = useRef([]);
 
-  const [videoId, setvideoId] = useState(0);
-  const [loadedData, setloadedData] = useState([]);
-
   const [videoOnTrack, setvideoOnTrack] = useState({
+    videoId: 0,
+    onTrack: null,
     isLastVideo: false,
     startPlay: null,
-    onTrack: null,
     isEnd: null,
   });
 
-  const { isLastVideo, startPlay, onTrack, isEnd } = videoOnTrack;
+  const { videoId, isLastVideo, startPlay, onTrack, isEnd } = videoOnTrack;
+
+  const [loadedData, setloadedData] = useState([]);
 
   /* Functionalities  */
   const handleTrack = (state, index) => {
@@ -30,10 +31,10 @@ export default function Highlight() {
       case "next":
         if (videoId === 3)
           setvideoOnTrack((prev) => ({ ...prev, isLastVideo: true }));
-        setvideoId((prev) => prev + 1);
+        // setvideoId((prev) => prev + 1);
         break;
       case "reset":
-        setvideoId(0);
+        // setvideoId(0);
         setvideoOnTrack((prev) => ({ ...prev, isEnd: true }));
         break;
       case "pause":
@@ -56,50 +57,36 @@ export default function Highlight() {
   const handleLoadedMetaData = (i, e) => setloadedData((prev) => [...prev, e]);
 
   /* Animations and Effect */
-
   useEffect(() => {
-    if ((loadedData.length = 4)) {
-      if (onTrack && !isEnd) {
-        videosRef.current[videoId].play();
-      }
+    // progress bar animation
+    // let currentProgress = 0;
+    // const divs = videoDivRef.current;
+    // const spans = videoSpanRef.current;
+    if (loadedData[videoId] && onTrack) {
+      videosRef.current[videoId].play();
     }
-  }, [videoId, onTrack, isEnd, loadedData]);
+  }, [videoId, startPlay, onTrack, loadedData]);
 
   useGSAP(() => {
-    gsap.to("#slider", {
-      transform: `translateX(${
-        videoId === 0 ? -100 : videoId === -1 ? 0 : -100 * videoId
-      }%)`,
-      duration: 2,
-      delay: `${videoId === 0 ? 1 : 0.5}`,
-      ease: "power2.inOut",
-      scrollTrigger: {
-        trigger: "#slider",
-        toggleActions: "restart none restart none",
+    gsap.to();
+    // Gsap classique animation
+    gsapAnimate(
+      "#Mac",
+      { opacity: 1, y: 0, duration: 0.8 },
+      { togglActions: "restart reverse restart reverse" }
+    );
+    gsapAnimate(
+      ".link",
+      {
+        opacity: 1,
+        y: 0,
+        stagger: 0.25,
+        delay: 0.5,
+        duration: 0.8,
       },
-      onComplete: () => {
-        videoId !== 3
-          ? setvideoId((videoId) => videoId + 1)
-          : setvideoId((videoId) => -1);
-        setvideoOnTrack((prev) => ({
-          ...prev,
-          onTrack: false,
-          isEnd: true,
-        }));
-      },
-    });
-  }, [videoId]);
-
-  useGSAP(() => {
-    gsap.to("#Mac", { opacity: 1, y: 0, duration: 0.8 });
-    gsap.to(".link", {
-      opacity: 1,
-      y: 0,
-      stagger: 0.25,
-      delay: 0.5,
-      duration: 0.8,
-    });
-    gsap.to("#Carousel_container", { opacity: 1, delay: 1.5 });
+      { toggleAction: "restart reverse restart reverse" }
+    );
+    gsapAnimate("#Carousel_container", { opacity: 1, delay: 1.5 });
   });
 
   return (
@@ -111,7 +98,7 @@ export default function Highlight() {
         <div className=" flex justify-between max-md:flex-col max-md:gap-5 ">
           <h2
             id="Mac"
-            className="opacity-0 text-6xl font-medium text-[#86868b] translate-y-20 "
+            className="opacity-0 text-6xl max-sm:text-4xl font-medium text-[#86868b] translate-y-20 "
           >
             Get the hightlight.
           </h2>
@@ -121,7 +108,10 @@ export default function Highlight() {
                 key={index}
                 className="flex items-center gap-2 link opacity-0 translate-y-20"
               >
-                <a href="/" className="text-[#2997FF] text-xl font-normal ">
+                <a
+                  href="/"
+                  className="text-[#2997FF] text-xl font-normal max-sm:text-lg "
+                >
                   {link.text}
                 </a>
                 <div>
@@ -153,14 +143,15 @@ export default function Highlight() {
                     setvideoOnTrack((prev) => ({
                       ...prev,
                       onTrack: true,
-                      startPlay: true,
                     }));
                   }}
                   onLoadedMetadata={(e) => handleLoadedMetaData(index, e)}
                   onEnded={() => {
-                    isLastVideo
-                      ? handleTrack("reset", index)
-                      : handleTrack("next", index);
+                    videoId < 3 &&
+                      setvideoOnTrack((prev) => ({
+                        ...prev,
+                        videoId: prev.videoId + 1,
+                      }));
                   }}
                 >
                   <source type="video/mp4" src={slide.video} />

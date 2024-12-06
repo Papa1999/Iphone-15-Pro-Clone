@@ -13,6 +13,7 @@ export const gsapAnimate = (target, animationsProps, scrollProps) => {
   });
 };
 
+
 export const animateWithGsap = (target, animationProps, scrollProps) => {
   gsap.to(target, {
     ...animationProps,

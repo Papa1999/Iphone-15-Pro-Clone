@@ -51,7 +51,7 @@ export default function FullStory() {
     <section className="max-w-full xl-padding-y min-h-screen pdy-128 text-white bg-[#232323]">
       <div className="container">
         <h2
-          className="opacity-0 text-4xl font-medium text-[#86868b] translate-y-20"
+          className="opacity-0 text-4xl max-sm:text-3xl font-medium text-[#86868b] translate-y-20"
           id="FullStory"
         >
           Explore the full Story.
@@ -59,7 +59,7 @@ export default function FullStory() {
         <div className="w-10/12 mx-auto mt-[100px] ">
           <p
             id="FullStory"
-            className="text-5xl text-white font-semibold opacity-0 translate-y-20"
+            className="text-5xl max-sm:text-4xl text-white font-semibold opacity-0 translate-y-20"
           >
             iPhone. <br /> forged in titanium.{" "}
           </p>
@@ -95,7 +95,7 @@ export default function FullStory() {
               />
             </div>
           </div>
-          <div className="w-full flex gap-10 max-lg:gap-5">
+          <div className="w-full flex gap-10 max-lg:gap-5 max-sm:flex-col">
             <p
               id="para"
               className="text-[#86868b] font-semibold text-xl opacity-0 translate-y-20"

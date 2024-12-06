@@ -53,7 +53,7 @@ export default function Gaming() {
         <p className="text-lg text-center text-[#86868b] font-semibold mb-[50px]">
           Honkai: Star Rail
         </p>
-        <div className="flex justify-between">
+        <div className="flex justify-between max-sm:flex-col">
           <div>
             <p
               id="par"
@@ -78,13 +78,13 @@ export default function Gaming() {
               Pro takes fast and runs with it.
             </p>
           </div>
-          <div className="max-w-[512px] flex-1">
+          <div className="max-w-[512px] flex-1 max-sm:mt-8">
             <p
               id="par"
               className="text-[#86868b] font-semibold text-xl translate-y-20"
             >
               New <br />
-              <span className="font-bold text-5xl my-2 block text-white ">
+              <span className="font-bold text-5xl max-sm:text-3xl my-2 block text-white ">
                 Pro-class GPU
               </span>
               with 6 cores
