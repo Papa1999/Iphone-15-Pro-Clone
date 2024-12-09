@@ -1,21 +1,25 @@
 import { pause, playWhite, replay } from "../utils";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/all";
+// import { ScrollTrigger } from "gsap/all";
 import { hightLightLinks, hightlightsSlides } from "../constants";
 import { useRef, useEffect, useState } from "react";
+import { gsapTranslate } from "../utils/animations";
 import { gsapAnimate } from "../utils/animations";
-gsap.registerPlugin(ScrollTrigger);
+// gsap.registerPlugin(ScrollTrigger);
 
 export default function Highlight() {
-  /* Ref and States */
+  /* 
+        Data 
+                  */
+
   const videosRef = useRef([]);
   const videoDivRef = useRef([]);
   const videoSpanRef = useRef([]);
 
   const [videoOnTrack, setvideoOnTrack] = useState({
     videoId: 0,
-    onTrack: null,
+    onTrack: false,
     isLastVideo: false,
     startPlay: null,
     isEnd: null,
@@ -25,29 +29,48 @@ export default function Highlight() {
 
   const [loadedData, setloadedData] = useState([]);
 
-  /* Functionalities  */
-  const handleTrack = (state, index) => {
+  /*
+        Functionalities
+                            */
+
+  const handleTrack = (state) => {
     switch (state) {
+      case "start":
+        setvideoOnTrack((prev) => ({
+          ...prev,
+          isEnd: false,
+          onTrack: true,
+        }));
+        break;
+      case "pause_play":
+        setvideoOnTrack((prev) => ({
+          ...prev,
+          onTrack: !prev.onTrack,
+        }));
+        break;
       case "next":
-        if (videoId === 3)
-          setvideoOnTrack((prev) => ({ ...prev, isLastVideo: true }));
-        // setvideoId((prev) => prev + 1);
+        setvideoOnTrack((prev) => ({
+          ...prev,
+          videoId: prev.videoId + 1,
+        }));
+        break;
+      case "mark-last":
+        setvideoOnTrack((prev) => ({
+          ...prev,
+          onTrack: true,
+          isLastVideo: true,
+        }));
+        break;
+      case "mark-end":
+        setvideoOnTrack((prev) => ({
+          ...prev,
+          isEnd: true,
+          videoId: 0,
+          onTrack: false,
+        }));
         break;
       case "reset":
-        // setvideoId(0);
         setvideoOnTrack((prev) => ({ ...prev, isEnd: true }));
-        break;
-      case "pause":
-        setvideoOnTrack((prev) => ({
-          ...prev,
-          onTrack: !prev.onTrack,
-        }));
-        break;
-      case "play":
-        setvideoOnTrack((prev) => ({
-          ...prev,
-          onTrack: !prev.onTrack,
-        }));
         break;
       default:
         return videoOnTrack;
@@ -56,20 +79,12 @@ export default function Highlight() {
 
   const handleLoadedMetaData = (i, e) => setloadedData((prev) => [...prev, e]);
 
-  /* Animations and Effect */
-  useEffect(() => {
-    // progress bar animation
-    // let currentProgress = 0;
-    // const divs = videoDivRef.current;
-    // const spans = videoSpanRef.current;
-    if (loadedData[videoId] && onTrack) {
-      videosRef.current[videoId].play();
-    }
-  }, [videoId, startPlay, onTrack, loadedData]);
+  /* 
+        Animations and Effect 
+                                  */
 
+  // Classic GSAP animations
   useGSAP(() => {
-    gsap.to();
-    // Gsap classique animation
     gsapAnimate(
       "#Mac",
       { opacity: 1, y: 0, duration: 0.8 },
@@ -86,9 +101,63 @@ export default function Highlight() {
       },
       { toggleAction: "restart reverse restart reverse" }
     );
-    gsapAnimate("#Carousel_container", { opacity: 1, delay: 1.5 });
+    gsapAnimate("#Carousel_container", { opacity: 1, delay: 0.8 });
+    gsapAnimate("#slider", {
+      onStart: () => {
+        handleTrack("start");
+      },
+    });
   });
 
+  // Slider Animation
+  useEffect(() => {
+    gsapTranslate("#slider", videoId);
+    if (videoDivRef.current[videoId].id === `div_${videoId}`) {
+      gsap.to(videoDivRef.current[videoId], {
+        width: "50px",
+        onComplete: () => {
+          gsap.fromTo(
+            videoDivRef.current[videoId],
+            {
+              width: "50px",
+            },
+            {
+              width: "16px",
+            }
+          );
+        },
+      });
+    }
+
+    // if (loadedData[videoId]) {
+    //   console.log(videosRef.current[videoId]);
+    //   // gsap.to(videosRef.current[videoId], {
+    //   //   width: videosRef.current[videoId].currentTime,
+    //   // });
+    // }
+    // gsap.to(videoSpanRef.current[videoId], {
+    //   onComplete: () => {
+    //     gsapAnimate(videoDivRef.current[videoId], {
+    //       width: "16px",
+    //     });
+    //   },
+    // });
+  }, [videoId]);
+
+  // Progress animation
+
+  // Control of the video
+  useEffect(() => {
+    if (loadedData[videoId] && onTrack) {
+      videosRef.current[videoId].play();
+    } else if (loadedData[videoId] && !onTrack) {
+      videosRef.current[videoId].pause();
+    }
+  }, [videoId, startPlay, onTrack, loadedData]);
+
+  /* 
+        HMTL return by the component
+                                         */
   return (
     <section
       id="Hightlight"
@@ -139,19 +208,14 @@ export default function Highlight() {
                   playsInline={true}
                   muted
                   ref={(el) => (videosRef.current[index] = el)}
-                  onPlay={() => {
-                    setvideoOnTrack((prev) => ({
-                      ...prev,
-                      onTrack: true,
-                    }));
-                  }}
                   onLoadedMetadata={(e) => handleLoadedMetaData(index, e)}
+                  onPlay={() => {
+                    videoId < 3
+                      ? handleTrack("start")
+                      : handleTrack("mark-last");
+                  }}
                   onEnded={() => {
-                    videoId < 3 &&
-                      setvideoOnTrack((prev) => ({
-                        ...prev,
-                        videoId: prev.videoId + 1,
-                      }));
+                    videoId < 3 ? handleTrack("next") : handleTrack("mark-end");
                   }}
                 >
                   <source type="video/mp4" src={slide.video} />
@@ -171,7 +235,7 @@ export default function Highlight() {
           <div className="flex gap-2 h-[48px] bg-white bg-opacity-10 rounded-full justify-center  items-center px-[35px]">
             {hightlightsSlides.map((_, index) => (
               <div
-                id="video_tracker"
+                id={`div_${index}`}
                 key={index}
                 className="bg-white rounded-full h-[16px] w-[16px] bg-opacity-40"
                 ref={(el) => (videoDivRef.current[index] = el)}
@@ -189,11 +253,9 @@ export default function Highlight() {
             id="play_pause_replay"
             className=" flex w-[48px] h-[48px] rounded-full bg-white bg-opacity-10 justify-center items-center"
             onClick={() => {
-              onTrack
-                ? handleTrack("pause", videoId)
-                : !isEnd
-                ? handleTrack("play", videoId)
-                : handleTrack("reset", videoId);
+              onTrack || !onTrack
+                ? handleTrack("pause_play", videoId)
+                : isEnd && handleTrack("reset", videoId);
             }}
           >
             <img

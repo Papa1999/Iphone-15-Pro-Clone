@@ -17,7 +17,7 @@ export default function Gaming() {
           Rendering  
   */
   return (
-    <section className="max-w-full xl-padding-y min-h-screen pdy-128 text-white">
+    <section className="max-w-full lg-padding-y min-h-screen pdy-128 text-white">
       <div className="container">
         <div
           style={{ width: "180px", height: "180px" }}
