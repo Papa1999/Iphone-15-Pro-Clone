@@ -1,5 +1,4 @@
 import { pause, playWhite, replay } from "../utils";
-import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 // import { ScrollTrigger } from "gsap/all";
 import { hightLightLinks, hightlightsSlides } from "../constants";
@@ -25,7 +24,7 @@ export default function Highlight() {
     isEnd: null,
   });
 
-  const { videoId, isLastVideo, startPlay, onTrack, isEnd } = videoOnTrack;
+  const { videoId, startPlay, onTrack, isEnd } = videoOnTrack;
 
   const [loadedData, setloadedData] = useState([]);
 
@@ -88,7 +87,7 @@ export default function Highlight() {
     gsapAnimate(
       "#Mac",
       { opacity: 1, y: 0, duration: 0.8 },
-      { togglActions: "restart reverse restart reverse" }
+      { togglActions: "restart reverse restart reverse", start: "top 80%" }
     );
     gsapAnimate(
       ".link",
@@ -99,53 +98,32 @@ export default function Highlight() {
         delay: 0.5,
         duration: 0.8,
       },
-      { toggleAction: "restart reverse restart reverse" }
+      { toggleAction: "restart reverse restart reverse", start: "top 80%" }
     );
     gsapAnimate("#Carousel_container", { opacity: 1, delay: 0.8 });
-    gsapAnimate("#slider", {
-      onStart: () => {
-        handleTrack("start");
+    gsapAnimate(
+      "#slider",
+      {
+        onStart: () => {
+          handleTrack("start");
+        },
       },
-    });
+      { start: "top 80%" }
+    );
   });
 
   // Slider Animation
   useEffect(() => {
     gsapTranslate("#slider", videoId);
-    if (videoDivRef.current[videoId].id === `div_${videoId}`) {
-      gsap.to(videoDivRef.current[videoId], {
-        width: "50px",
-        onComplete: () => {
-          gsap.fromTo(
-            videoDivRef.current[videoId],
-            {
-              width: "50px",
-            },
-            {
-              width: "16px",
-            }
-          );
-        },
-      });
-    }
-
-    // if (loadedData[videoId]) {
-    //   console.log(videosRef.current[videoId]);
-    //   // gsap.to(videosRef.current[videoId], {
-    //   //   width: videosRef.current[videoId].currentTime,
-    //   // });
-    // }
-    // gsap.to(videoSpanRef.current[videoId], {
-    //   onComplete: () => {
-    //     gsapAnimate(videoDivRef.current[videoId], {
-    //       width: "16px",
-    //     });
-    //   },
-    // });
   }, [videoId]);
 
   // Progress animation
-
+  useEffect(() => {
+    gsapAnimate(videoSpanRef.current[videoId], {
+      width: "50px",
+      duration: hightlightsSlides[videoId].videoDuration,
+    });
+  });
   // Control of the video
   useEffect(() => {
     if (loadedData[videoId] && onTrack) {
@@ -237,14 +215,19 @@ export default function Highlight() {
               <div
                 id={`div_${index}`}
                 key={index}
-                className="bg-white rounded-full h-[16px] w-[16px] bg-opacity-40"
+                className={`bg-white rounded-full h-[16px]  bg-opacity-40`}
                 ref={(el) => (videoDivRef.current[index] = el)}
+                style={{ width: !isEnd && videoId === index ? "50px" : "16px" }}
               >
                 <span
                   id="video_progress"
                   key={index}
-                  className="block rounded-full h-[16px] w-[16px]"
+                  className="block rounded-full h-[16px] w-0"
                   ref={(el) => (videoSpanRef.current[index] = el)}
+                  style={{
+                    backgroundColor:
+                      !isEnd && videoId === index ? "white" : "transparent",
+                  }}
                 ></span>
               </div>
             ))}

@@ -8,7 +8,6 @@ export const gsapAnimate = (target, animationsProps, scrollProps) => {
     scrollTrigger: {
       ...scrollProps,
       trigger: target,
-      start: "top 80%",
     },
   });
 };
@@ -17,7 +16,7 @@ export const gsapTranslate = (target, id) => {
   gsap.to(target, {
     x: `${id === 4 ? 0 : -id * 100}%`,
     ease: "power2.inOut",
-    duration: 1.5,
+    duration: 1.3,
   });
 };
 
