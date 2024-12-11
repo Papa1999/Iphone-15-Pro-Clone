@@ -7,14 +7,14 @@ import * as THREE from "three";
 import { Canvas } from "@react-three/fiber";
 import { View } from "@react-three/drei";
 import { models, sizes } from "../constants";
-import { animateWithGsapTimeline } from "../utils/animations";
 
 const Model = () => {
   /* States */
   const [size, setSize] = useState("small");
   const [model, setModel] = useState({
+    id: 1,
     title: "iPhone 15 Pro in Natural Titanium",
-    color: ["#8F8A81", "#FFE7B9", "#6F6C64"],
+    color: ["#8F8A81", "#ffe7b9", "#6f6c64"],
     img: yellow,
   });
 
@@ -35,21 +35,6 @@ const Model = () => {
   /* 
         Effect and Animation    
   */
-  useEffect(() => {
-    if (size === "large") {
-      animateWithGsapTimeline(tl, small, smallRotation, "#view1", "#view2", {
-        transform: "translateX(-100%)",
-        duration: 2,
-      });
-    }
-
-    if (size === "small") {
-      animateWithGsapTimeline(tl, large, largeRotation, "#view2", "#view1", {
-        transform: "translateX(0)",
-        duration: 2,
-      });
-    }
-  }, [size]);
 
   useGSAP(() => {
     gsap.to("#heading", { y: 0, opacity: 1 });
@@ -61,7 +46,7 @@ const Model = () => {
   return (
     <section className="common-padding">
       <div className="screen-max-width">
-        <h1 id="heading" className="section-heading">
+        <h1 id="heading" className="opacity-0 translate-y-20 title text-center">
           Take a closer look.
         </h1>
 
@@ -102,10 +87,10 @@ const Model = () => {
               <View.Port />
             </Canvas>
           </div>
-
+          <p className="text-xl font-regular text-center mb-5 text-white">
+            {model.title}
+          </p>
           <div className="mx-auto w-full">
-            <p className="text-sm font-light text-center mb-5">{model.title}</p>
-
             <div className="flex justify-center gap-[50px]">
               <ul className="flex bg-white bg-opacity-10 px-[18px] py-[20px] rounded-3xl ">
                 {models.map((item, i) => (

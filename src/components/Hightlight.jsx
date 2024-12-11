@@ -5,6 +5,7 @@ import { hightLightLinks, hightlightsSlides } from "../constants";
 import { useRef, useEffect, useState } from "react";
 import { gsapTranslate } from "../utils/animations";
 import { gsapAnimate } from "../utils/animations";
+import gsap from "gsap";
 // gsap.registerPlugin(ScrollTrigger);
 
 export default function Highlight() {
@@ -115,15 +116,18 @@ export default function Highlight() {
   // Slider Animation
   useEffect(() => {
     gsapTranslate("#slider", videoId);
+    gsap.fromTo(
+      videoSpanRef.current[videoId],
+      {
+        width: "0px",
+      },
+      {
+        width: "50px",
+        duration: hightlightsSlides[videoId].videoDuration + 0.5,
+      }
+    );
   }, [videoId]);
 
-  // Progress animation
-  useEffect(() => {
-    gsapAnimate(videoSpanRef.current[videoId], {
-      width: "50px",
-      duration: hightlightsSlides[videoId].videoDuration,
-    });
-  });
   // Control of the video
   useEffect(() => {
     if (loadedData[videoId] && onTrack) {
