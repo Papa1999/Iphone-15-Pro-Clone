@@ -6,10 +6,9 @@ import CloserLook from "./CloserLook";
 import FullStory from "./FullStory";
 import Gaming from "./Gaming";
 import Footer from "./Footer";
-import iPhone from "./iPhone";
 import ModelView from "./ModelView";
+import Iphone from "./iPhone";
 import Lights from "./Lights";
-import Loader from "./Loader";
 
 export {
   App,
@@ -19,9 +18,8 @@ export {
   CloserLook,
   FullStory,
   Gaming,
-  iPhone,
   ModelView,
+  Iphone,
   Lights,
-  Loader,
   Footer,
 };
