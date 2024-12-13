@@ -1,6 +1,9 @@
 import { useGSAP } from "@gsap/react";
 import { chip, frameImg, frameVid } from "../utils";
 import { gsapAnimate } from "../utils/animations";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/all";
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Gaming() {
   /* 
@@ -12,6 +15,16 @@ export default function Gaming() {
       { y: 0, opacity: 1 },
       { toggleActions: "restart reverse restart reverse" }
     );
+    gsap.from("#A17", {
+      scale: 2,
+      ease: "power2.inOut",
+      duration: 1.5,
+      scrollTrigger: {
+        trigger: "#A17",
+        start: "top 80%",
+        toggleActions: "restart none restart none",
+      },
+    });
   }, []);
   /* 
           Rendering  
@@ -23,7 +36,7 @@ export default function Gaming() {
           style={{ width: "180px", height: "180px" }}
           className="mx-auto mb-[100px]"
         >
-          <img src={chip} alt="A17 Pro" />
+          <img id="A17" src={chip} alt="A17 Pro" />
         </div>
         <p className="text-5xl text-white font-semibold text-center">
           A17 Pro chip.
