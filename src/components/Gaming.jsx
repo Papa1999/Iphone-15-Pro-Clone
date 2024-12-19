@@ -16,13 +16,14 @@ export default function Gaming() {
       { toggleActions: "restart reverse restart reverse" }
     );
     gsap.from("#A17", {
+      opacity: 0,
       scale: 2,
       ease: "power2.inOut",
-      duration: 1.5,
+      duration: 1.2,
       scrollTrigger: {
         trigger: "#A17",
         start: "top 80%",
-        toggleActions: "restart none restart none",
+        toggleActions: "restart none none none",
       },
     });
   }, []);
@@ -36,7 +37,7 @@ export default function Gaming() {
           style={{ width: "180px", height: "180px" }}
           className="mx-auto mb-[100px]"
         >
-          <img id="A17" src={chip} alt="A17 Pro" />
+          <img id="A17" src={chip} alt="A17 Pro" className="opacity-1" />
         </div>
         <p className="text-5xl text-white font-semibold text-center">
           A17 Pro chip.
@@ -97,7 +98,7 @@ export default function Gaming() {
               className="text-[#86868b] font-semibold text-xl translate-y-20"
             >
               New <br />
-              <span className="font-bold text-5xl max-sm:text-3xl my-2 block text-white ">
+              <span className="font-bold text-5xl md:text-4xl max-sm:text-3xl my-2 block text-white ">
                 Pro-class GPU
               </span>
               with 6 cores

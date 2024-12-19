@@ -14,7 +14,7 @@ export const gsapAnimate = (target, animationsProps, scrollProps) => {
 
 export const gsapTranslate = (target, id) => {
   gsap.to(target, {
-    x: `${id === 4 ? 0 : -id * 100}%`,
+    x: `${id === 4 ? 0 : -id * 106}%`,
     ease: "power2.inOut",
     duration: 1.3,
   });

@@ -149,19 +149,19 @@ export default function Highlight() {
         <div className=" flex justify-between max-md:flex-col max-md:gap-5 ">
           <h2
             id="Mac"
-            className="opacity-0 text-6xl max-sm:text-4xl font-medium text-[#86868b] translate-y-20 "
+            className="opacity-0 text-6xl max-sm:text-4xl font-medium text-[#86868b] translate-y-20 md:text-5xl"
           >
             Get the hightlight.
           </h2>
-          <div className="flex gap-5 ">
+          <div className="flex gap-5">
             {hightLightLinks.map((link, index) => (
               <div
                 key={index}
-                className="flex items-center gap-2 link opacity-0 translate-y-20"
+                className="flex items-center gap-2  link opacity-0 translate-y-20"
               >
                 <a
                   href="/"
-                  className="text-[#2997FF] text-xl font-normal max-sm:text-lg "
+                  className="text-[#2997FF] text-xl font-normal max-sm:text-lg md:text-base "
                 >
                   {link.text}
                 </a>
@@ -174,7 +174,7 @@ export default function Highlight() {
         </div>
         <div
           id="Carousel_container"
-          className="w-full h-[440px] px-[80px] max-lg:px-[40px] mx-auto flex gap-10 max-md:gap-10 opacity-0 my-[40px] overflow-hidden"
+          className="w-full h-[440px] px-[80px] max-lg:px-[40px] max-sm:px-0 mx-auto flex gap-14 max-md:gap-5 opacity-0 my-[40px] overflow-hidden"
         >
           {hightlightsSlides.map((slide, index) => (
             <div
@@ -203,7 +203,7 @@ export default function Highlight() {
                   <source type="video/mp4" src={slide.video} />
                 </video>
               </div>
-              <div className="absolute top-8 left-12">
+              <div className="absolute top-8 left-12 max-sm:left-6">
                 {slide.textLists.map((text, id) => (
                   <div key={id}>
                     <p className="md:text-2xl text-xl font-semibold">{text}</p>
@@ -219,14 +219,14 @@ export default function Highlight() {
               <div
                 id={`div_${index}`}
                 key={index}
-                className={`bg-white rounded-full h-[16px]  bg-opacity-40`}
+                className={`bg-white rounded-full h-[10px]  bg-opacity-40`}
                 ref={(el) => (videoDivRef.current[index] = el)}
-                style={{ width: !isEnd && videoId === index ? "50px" : "16px" }}
+                style={{ width: !isEnd && videoId === index ? "50px" : "10px" }}
               >
                 <span
                   id="video_progress"
                   key={index}
-                  className="block rounded-full h-[16px] w-0"
+                  className="block rounded-full h-[10px] w-0"
                   ref={(el) => (videoSpanRef.current[index] = el)}
                   style={{
                     backgroundColor:

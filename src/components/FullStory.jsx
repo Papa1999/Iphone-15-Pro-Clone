@@ -51,23 +51,23 @@ export default function FullStory() {
     <section className="max-w-full xl-padding-y min-h-screen pdy-128 text-white bg-[#232323]">
       <div className="container">
         <h2
-          className="opacity-0 text-4xl max-sm:text-3xl font-medium text-[#86868b] translate-y-20"
+          className="opacity-0 text-4xl max-sm:text-3xl font-medium text-[#86868b] translate-y-20 "
           id="FullStory"
         >
           Explore the full Story.
         </h2>
-        <div className="w-10/12 mx-auto mt-[100px] ">
+        <div className="w-10/12 mx-auto mt-[100px] max-sm:w-full max-sm:mx-0 ">
           <p
             id="FullStory"
-            className="text-5xl max-sm:text-4xl text-white font-semibold opacity-0 translate-y-20"
+            className="text-5xl max-sm:text-4xl text-white font-semibold opacity-0 translate-y-20 max-sm:10"
           >
             iPhone. <br /> forged in titanium.{" "}
           </p>
           <div
             id="Bento"
-            className="my-[60px] grid grid-rows-2 grid-cols-2 opacity-0 h-screen"
+            className="my-[60px] grid grid-rows-2 grid-cols-2 opacity-0 h-screen max-sm:grid-rows-3 max-sm:grid-cols-1"
           >
-            <div className="col-span-2">
+            <div className="col-span-2 max-sm:col-span-1">
               <video
                 playsInline={true}
                 autoPlay
@@ -78,7 +78,7 @@ export default function FullStory() {
                 <source src={explore} type="video/mp4" />
               </video>
             </div>
-            <div className="flex overflow-hidden">
+            <div className="flex overflow-hidden max-sm:col-span-1">
               <img
                 id="ScaleImg"
                 src={explore1}
@@ -86,7 +86,7 @@ export default function FullStory() {
                 className="h-full w-full scale-150 object-cover"
               />
             </div>
-            <div className="flex overflow-hidden">
+            <div className="flex overflow-hidden max-sm:col-span-1">
               <img
                 id="ScaleImg"
                 src={explore2}

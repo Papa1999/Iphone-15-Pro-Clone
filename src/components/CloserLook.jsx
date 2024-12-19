@@ -45,7 +45,7 @@ const Model = () => {
         </h1>
 
         <div className="flex flex-col items-center mt-5">
-          <div className="flex w-full h-[75vh] md:h-[90vh] overflow-hidden relative">
+          <div className="w-full h-[75vh] md:h-[90vh] flex overflow-hidden">
             <ModelView
               index={1}
               gsapType="view1"
@@ -54,10 +54,9 @@ const Model = () => {
               item={model}
               setRotation={setSmallRotation}
               controlRef={cameraControlSmall}
-              className="w-full"
             />
 
-            <ModelView
+            {/* <ModelView
               index={2}
               item={model}
               gsapType="view2"
@@ -65,8 +64,7 @@ const Model = () => {
               setRotation={setLargeRotation}
               ref={cameraControlLarge}
               groupRef={large}
-              className="w-full"
-            />
+            /> */}
 
             <Canvas
               className="w-full h-full"
@@ -92,14 +90,14 @@ const Model = () => {
                 {models.map((item, i) => (
                   <li
                     key={i}
-                    className="w-6 h-6 rounded-full mx-2 cursor-pointer"
+                    className="w-[20px] h-[20px] rounded-full mx-2 cursor-pointer"
                     style={{ backgroundColor: item.color[0] }}
                     onClick={() => setModel(item)}
                   />
                 ))}
               </ul>
 
-              <button className="flex items-center gap-[10px] bg-white bg-opacity-10 rounded-3xl  px-[10px] px ">
+              <button className="flex items-center gap-[10px] bg-white bg-opacity-10 rounded-3xl  px-[10px] ">
                 {sizes.map(({ label, value }) => (
                   <span
                     key={label}
