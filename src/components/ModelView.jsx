@@ -1,4 +1,9 @@
-import { Html, OrbitControls, PerspectiveCamera, View } from "@react-three/drei";
+import {
+  Html,
+  OrbitControls,
+  PerspectiveCamera,
+  View,
+} from "@react-three/drei";
 import * as THREE from "three";
 import { Lights, Iphone } from "./";
 import { Suspense } from "react";
@@ -16,7 +21,7 @@ export default function ModelView({
     <View
       index={index}
       id={gsapType}
-      className={`w-full h-full absolute ${index === 2} ? "right-[-100%] : ""`}
+      className={`min-w-full h-full `}
     >
       <ambientLight intensity={0.3} />
 

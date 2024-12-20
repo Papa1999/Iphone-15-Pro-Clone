@@ -26,6 +26,12 @@ const Model = () => {
 
   // const tl = gsap.timeline();
 
+  /* Functionnalities  */
+  const handleSize = (value, model) => {
+    setSize(value);
+    setModel(model);
+  };
+
   /* 
         Effect and Animation    
   */
@@ -39,7 +45,7 @@ const Model = () => {
   */
   return (
     <section className="common-padding">
-      <div className="screen-max-width">
+      <div className="container">
         <h1 id="heading" className="opacity-0 translate-y-20 title text-center">
           Take a closer look.
         </h1>
@@ -47,7 +53,7 @@ const Model = () => {
         <div className="flex flex-col items-center mt-5">
           <div className="w-full h-[75vh] md:h-[90vh] flex overflow-hidden">
             <ModelView
-              index={1}
+              index={model === models[0] ? 1 : 2}
               gsapType="view1"
               groupRef={small}
               size={size}
@@ -56,7 +62,7 @@ const Model = () => {
               controlRef={cameraControlSmall}
             />
 
-            {/* <ModelView
+            <ModelView
               index={2}
               item={model}
               gsapType="view2"
@@ -64,7 +70,7 @@ const Model = () => {
               setRotation={setLargeRotation}
               ref={cameraControlLarge}
               groupRef={large}
-            /> */}
+            />
 
             <Canvas
               className="w-full h-full"

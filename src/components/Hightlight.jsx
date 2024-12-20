@@ -143,7 +143,7 @@ export default function Highlight() {
   return (
     <section
       id="Hightlight"
-      className="max-w-full min-h-screen text-white flex flex-col bg-[#232323] justify-center xl-padding-y"
+      className="max-w-full min-h-screen text-white flex flex-col bg-[#232323] justify-center xl-padding-y "
     >
       <div className="container">
         <div className=" flex justify-between max-md:flex-col max-md:gap-5 ">
@@ -174,7 +174,7 @@ export default function Highlight() {
         </div>
         <div
           id="Carousel_container"
-          className="w-full h-[440px] px-[80px] max-lg:px-[40px] max-sm:px-0 mx-auto flex gap-14 max-md:gap-5 opacity-0 my-[40px] overflow-hidden"
+          className="w-full h-[440px] pl-[80px] max-lg:pl-[40px] max-sm:pl-0 mx-auto flex gap-10 max-md:gap-5 opacity-0 my-[40px] overflow-x-hidden"
         >
           {hightlightsSlides.map((slide, index) => (
             <div
@@ -182,10 +182,12 @@ export default function Highlight() {
               key={slide.id}
               className="min-w-[80%] h-full bg-black rounded-3xl flex items-center justify-center text-lg font-semibold max-sm:min-w-[100%] max-md:min-w-[90%] relative "
             >
-              <div className="h-full flex items-center justify-center">
+              <div className=" w-full h-full flex items-center  overflow-hidden">
                 <video
                   id="video"
-                  className="h-full rounded-3xl"
+                  className={`h-full w-full rounded-3xl ${
+                    index === 2 ? "translate-x-[150px]" : ""
+                  } `}
                   preload="auto"
                   playsInline={true}
                   muted
