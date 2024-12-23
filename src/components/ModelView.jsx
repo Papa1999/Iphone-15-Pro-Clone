@@ -10,7 +10,6 @@ import { Suspense } from "react";
 
 export default function ModelView({
   index,
-  gsapType,
   groupRef,
   size,
   item,
@@ -20,7 +19,7 @@ export default function ModelView({
   return (
     <View
       index={index}
-      id={gsapType}
+      id={index}
       className={`min-w-full h-full `}
     >
       <ambientLight intensity={0.3} />
