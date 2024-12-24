@@ -16,6 +16,7 @@ export default function Highlight() {
   const videosRef = useRef([]);
   const videoDivRef = useRef([]);
   const videoSpanRef = useRef([]);
+  const animationTrack = useRef("");
 
   const [videoOnTrack, setvideoOnTrack] = useState({
     videoId: 0,
@@ -47,6 +48,9 @@ export default function Highlight() {
           ...prev,
           onTrack: !prev.onTrack,
         }));
+        onTrack
+          ? animationTrack.current.pause()
+          : animationTrack.current.play();
         break;
       case "next":
         setvideoOnTrack((prev) => ({
@@ -115,17 +119,19 @@ export default function Highlight() {
 
   // Slider Animation
   useEffect(() => {
-    gsapTranslate("#slider", videoId);
-    gsap.fromTo(
+    animationTrack.current = gsap.fromTo(
       videoSpanRef.current[videoId],
       {
         width: "0px",
+        paused: true,
       },
       {
         width: "50px",
-        duration: hightlightsSlides[videoId].videoDuration + 0.5,
+        duration: hightlightsSlides[videoId].videoDuration + 2,
       }
     );
+    gsapTranslate("#slider", videoId);
+    animationTrack.current.play();
   }, [videoId]);
 
   // Control of the video

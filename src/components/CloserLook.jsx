@@ -6,9 +6,10 @@ import { Canvas } from "@react-three/fiber";
 import { View } from "@react-three/drei";
 import { models, sizes } from "../constants";
 import { ModelView } from "./";
+// import { gsapAnimate } from "../utils/animations";
 
 const Model = () => {
-  /* States */
+  /* States, Refs, Variables */
   const [size, setSize] = useState("small");
   const [model, setModel] = useState(models[0]);
 
@@ -27,9 +28,8 @@ const Model = () => {
   // const tl = gsap.timeline();
 
   /* Functionnalities  */
-  const handleSize = (value, model) => {
-    setSize(value);
-    setModel(model);
+  const sizeChange = () => {
+    size === "small" ? setSize("large") : setSize("small");
   };
 
   /* 
@@ -51,23 +51,23 @@ const Model = () => {
         </h1>
 
         <div className="flex flex-col items-center mt-5">
-          <div className="w-full h-[75vh] md:h-[90vh] flex overflow-hidden">
+          <div className="w-full h-[75vh] md:h-[90vh] flex overflow-x-scroll">
             <ModelView
               index={1}
-              item={model}
               groupRef={small}
+              item={model}
               size={size}
-              setRotation={setSmallRotation}
-              controlRef={cameraControlSmall}
+              setRotation={setSmallRotation} // 3D behavior
+              controlRef={cameraControlSmall} // 3D behavior
             />
 
             <ModelView
               index={2}
-              item={model}
               groupRef={large}
+              item={model}
               size={size}
-              setRotation={setLargeRotation}
-              controlRef={cameraControlLarge}
+              setRotation={setLargeRotation} // 3D behavior
+              controlRef={cameraControlLarge} // 3D behavior
             />
 
             <Canvas
@@ -110,7 +110,7 @@ const Model = () => {
                       backgroundColor: size === value ? "white" : "transparent",
                       color: size === value ? "black" : "white",
                     }}
-                    onClick={() => setSize(value)}
+                    onClick={() => sizeChange()}
                   >
                     {label}
                   </span>

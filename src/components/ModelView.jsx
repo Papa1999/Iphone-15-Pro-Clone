@@ -6,7 +6,7 @@ import {
 } from "@react-three/drei";
 import * as THREE from "three";
 import { Lights, Iphone } from "./";
-import { Suspense } from "react";
+import { Suspense, useRef } from "react";
 
 export default function ModelView({
   index,
@@ -16,12 +16,11 @@ export default function ModelView({
   setRotation,
   controlRef,
 }) {
+  /* States, Refs, Variables */
+
+  /* Rendering */
   return (
-    <View
-      index={index}
-      id={index}
-      className={`min-w-full h-full `}
-    >
+    <View index={index} id={index} className="w-full">
       <ambientLight intensity={0.3} />
 
       <PerspectiveCamera makeDefault position={[0, 0, 4]} />

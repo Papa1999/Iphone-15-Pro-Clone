@@ -19,7 +19,6 @@ export default function Iphone(props) {
 
   /* Effects and animations */
   useEffect(() => {
-    console.log(materials);
     Object.entries(materials).map((material) => {
       // these are the material names that can't be changed color
       if (
